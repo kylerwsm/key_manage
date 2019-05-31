@@ -163,14 +163,16 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   Widget _showErrorMessage() {
     if (_errorMessage.length > 0 && _errorMessage != null) {
-      return new Text(
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+        child: new Text(
         _errorMessage,
         style: TextStyle(
             fontSize: 13.0,
             color: Colors.red,
             height: 1.0,
             fontWeight: FontWeight.w300),
-      );
+      ));
     } else {
       return new Container(
         height: 0.0,

@@ -116,11 +116,9 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   Widget _showCircularProgress() {
     if (_isLoading) {
       return Center(child: CircularProgressIndicator());
+    } else {
+      return Container();
     }
-    return Container(
-      height: 0.0,
-      width: 0.0,
-    );
   }
 
   void _showVerifyEmailSentDialog() {
@@ -175,7 +173,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                 fontSize: 13.0,
                 color: Colors.red,
                 height: 1.0,
-                fontWeight: FontWeight.w300),
+                fontWeight: FontWeight.w300)
           ));
     } else {
       return new Container(

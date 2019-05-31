@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login_demo/services/authentication.dart';
-import 'package:flutter_login_demo/pages/root_page.dart';
+import 'package:key_manage/services/authentication.dart';
+import 'package:key_manage/login_screens/root_page.dart';
 
 final applicationName = 'KeyManage';
 

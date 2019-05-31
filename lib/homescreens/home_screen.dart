@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:key_manage/services/authentication.dart';
 import 'tab_screens.dart';
 
-
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.auth, this.userId, this.onSignedOut})
-        : super(key: key);
+      : super(key: key);
 
   final BaseAuth auth;
   final VoidCallback onSignedOut;
@@ -39,8 +38,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(screenTitles[currentTabIndex]),
-        ),
+            title: Text(screenTitles[currentTabIndex]),
+            actions: <Widget>[
+              new FlatButton(
+                  child: new Text('Logout',
+                      style:
+                          new TextStyle(fontSize: 17.0, color: Colors.white)),
+                  onPressed: _signOut)
+            ]),
         body: tabs[currentTabIndex],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
@@ -65,5 +70,14 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ));
+  }
+
+  _signOut() async {
+    try {
+      await widget.auth.signOut();
+      widget.onSignedOut();
+    } catch (e) {
+      print(e);
+    }
   }
 }

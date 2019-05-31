@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: new Text('Logout',
                       style:
                           new TextStyle(fontSize: 17.0, color: Colors.white)),
-                  onPressed: _signOut)
+                  onPressed: _signOutSequence)
             ]),
         body: tabs[currentTabIndex],
         bottomNavigationBar: BottomNavigationBar(
@@ -72,12 +72,37 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
+  // This method signs the user out of the app.
   _signOut() async {
-    try {
-      await widget.auth.signOut();
-      widget.onSignedOut();
-    } catch (e) {
-      print(e);
-    }
+    await widget.auth.signOut();
+    widget.onSignedOut();
+  }
+
+  // This method prompts an alert dialog for logout confirmation.
+  _signOutSequence() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text("Logout"),
+            content: new Text("You will be returned to the login screen."),
+            actions: <Widget>[
+              // Buttons for the dialog box.
+              new FlatButton(
+                child: new Text("Cancel"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text("Logout"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _signOut();
+                },
+              )
+            ],
+          );
+        });
   }
 }

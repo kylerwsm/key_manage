@@ -180,6 +180,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     }
   }
 
+  // TODO: Change the logo to an appropriate one for the application.
   Widget _showLogo() {
     return new Hero(
       tag: 'hero',
@@ -202,7 +203,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
         keyboardType: TextInputType.emailAddress,
         autofocus: false,
         decoration: new InputDecoration(
-            hintText: 'Email',
+            hintText: 'Your Work Email',
             icon: new Icon(
               Icons.mail,
               color: Colors.grey,
@@ -221,7 +222,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
         obscureText: true,
         autofocus: false,
         decoration: new InputDecoration(
-            hintText: 'Password',
+            hintText: 'Your Password',
             icon: new Icon(
               Icons.lock,
               color: Colors.grey,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login_signup_page.dart';
 import 'package:key_manage/services/authentication.dart';
-import 'home_page.dart';
+import 'package:key_manage/homescreens/home_screen.dart';
 
 class RootPage extends StatefulWidget {
   RootPage({this.auth});
@@ -78,7 +78,7 @@ class _RootPageState extends State<RootPage> {
         break;
       case AuthStatus.LOGGED_IN:
         if (_userId.length > 0 && _userId != null) {
-          return new HomePage(
+          return new MyHomePage(
             userId: _userId,
             auth: widget.auth,
             onSignedOut: _onSignedOut,

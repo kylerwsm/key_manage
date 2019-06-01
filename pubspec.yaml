@@ -16,6 +16,18 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # Plugin for app launcher icons to be made from icons.
+  # More information from:
+  # https://stackoverflow.com/questions/43928702/how-to-change-the-application-launcher-icon-on-flutter
+  flutter_launcher_icons: "^0.6.1"
+
+# Specifies for app launcher icon to be made from image path.
+# The made icon is used for both android and ios.
+flutter_icons:
+  image_path: "assets/key.png"
+  android: true
+  ios: true
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

@@ -18,6 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // Text style for the login page.
   TextStyle style = TextStyle(fontSize: 20.0);
   int currentTabIndex = 0;
+  bool _isEmailVerified = false;
 
   List<Widget> tabs = [
     HomeScreen(),
@@ -25,6 +26,80 @@ class _MyHomePageState extends State<MyHomePage> {
     NotiScreen(),
     AccountScreen()
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _checkEmailVerification();
+  }
+
+  // This method prompts the user to verify email.
+  void _showVerifyEmailDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Verify your account"),
+          content: new Text("Please verify your account using the link sent to your registered email."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Resend link"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _resentVerifyEmail();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Logout"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _signOut();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // This method resends a verification email to the user.
+  void _resentVerifyEmail() {
+    widget.auth.sendEmailVerification();
+    _showVerifyEmailSentDialog();
+  }
+
+  // This method prompts user that verification email is resent.
+  void _showVerifyEmailSentDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Verify your account"),
+          content:
+              new Text("Link to verify account has been resent to your email."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Logout"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _signOut();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // This method checks if user is email verified.
+  void _checkEmailVerification() async {
+    _isEmailVerified = await widget.auth.isEmailVerified();
+    if (!_isEmailVerified) {
+      _showVerifyEmailDialog();
+    }
+  }
 
   // When the icon in the tab navigation is tapped, this method saves the index
   // of the tab that was tapped on.

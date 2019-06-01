@@ -105,7 +105,11 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     _isIos = Theme.of(context).platform == TargetPlatform.iOS;
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text('Login to Continue'),
+          title: new Text(
+            "Login",
+            style: TextStyle(fontSize: 20.0),
+          ),
+          backgroundColor: Color.fromRGBO(99, 138, 223, 1.0),
         ),
         body: Stack(
           children: <Widget>[
@@ -147,36 +151,35 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   }
 
   Widget _showBody() {
-    return new Container(
-        padding: EdgeInsets.all(16.0),
-        child: new Form(
-          key: _formKey,
-          child: new ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              _showLogo(),
-              _showEmailInput(),
-              _showPasswordInput(),
-              _showPrimaryButton(),
-              _showSecondaryButton(),
-              _showErrorMessage(),
-            ],
-          ),
-        ));
+    return Center(
+        child: new Container(
+            padding: EdgeInsets.all(16.0),
+            child: new Form(
+              key: _formKey,
+              child: new ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  _showLogo(),
+                  _showEmailInput(),
+                  _showPasswordInput(),
+                  _showPrimaryButton(),
+                  _showSecondaryButton(),
+                  _showErrorMessage(),
+                ],
+              ),
+            )));
   }
 
   Widget _showErrorMessage() {
     if (_errorMessage.length > 0 && _errorMessage != null) {
       return Padding(
           padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
-          child: new Text(
-            _errorMessage,
-            style: TextStyle(
-                fontSize: 13.0,
-                color: Colors.red,
-                height: 1.0,
-                fontWeight: FontWeight.w300)
-          ));
+          child: new Text(_errorMessage,
+              style: TextStyle(
+                  fontSize: 13.0,
+                  color: Colors.red,
+                  height: 1.0,
+                  fontWeight: FontWeight.w300)));
     } else {
       return new Container(
         height: 0.0,
@@ -184,12 +187,11 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     }
   }
 
-  // TODO: Change the logo to an appropriate one for the application.
   Widget _showLogo() {
     return new Hero(
       tag: 'hero',
       child: Padding(
-        padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
+        padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
         child: CircleAvatar(
           backgroundColor: Colors.transparent,
           radius: 48.0,

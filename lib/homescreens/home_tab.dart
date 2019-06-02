@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:key_manage/homescreens/card_item_model.dart';
 import 'package:key_manage/services/authentication.dart';
@@ -54,11 +55,37 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
   }
 
   // Shows the Icon on top of the screen.
+  // Shows Icon according to time of day.
+  // Morning: 0600 - 1159.
+  // Afternoon: 1200 - 1659.
+  // Evening: 1700 - 2159.
+  // Night: 2200 - 0559.
   Widget _showIcon() {
+    List<IconData> icons = [
+      Icons.wb_sunny,
+      Icons.wb_sunny,
+      Icons.wb_sunny,
+      Icons.brightness_3,
+    ];
+    IconData iconData;
+    var hourOfDay = TimeOfDay.now().hour;
+
+    if (hourOfDay < 6) {
+      iconData = icons[3];  // Night
+    } else if (hourOfDay < 12) {
+      iconData = icons[0];  // Morning
+    } else if (hourOfDay < 17) {
+      iconData = icons[1];  // Afternoon
+    } else if (hourOfDay < 22) {
+      iconData = icons[2];  // Evening
+    } else {
+      iconData = icons[3];  // Night
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Icon(
-        Icons.wb_sunny,
+        iconData,
         size: 45.0,
         color: iconColor,
       ),

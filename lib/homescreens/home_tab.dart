@@ -14,7 +14,7 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
   ];
   var cardIndex = 0;
   ScrollController scrollController;
-  var currentColor = Color.fromRGBO(231, 129, 109, 1.0);
+  var currentColor = Colors.white;
 
   var qrCard = CardItemModel("Your QR Code", Icons.account_circle, 9, 0.83);
 
@@ -33,139 +33,304 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
     scrollController = new ScrollController();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: currentColor,
-      body: new Center(
+  // Shows the content on the page.
+  Widget _showBody() {
+    return new ListView(
+      padding: EdgeInsets.all(16.0),
+      shrinkWrap: true,
+      children: <Widget>[
+        _showHeader(),
+        _showCard1(),
+        _showCard2(),
+        _showCard1(),
+        _showCard2()
+      ],
+    );
+  }
+
+  // Shows the Icon on top of the screen.
+  Widget _showIcon() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Icon(
+        Icons.account_circle,
+        size: 45.0,
+        color: Color.fromRGBO(231, 129, 109, 1.0),
+      ),
+    );
+  }
+
+  // Shows the hello message.
+  Widget _showWelcome() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 12.0),
+      child: Text(
+        "Hello, $userName.",
+        style: TextStyle(
+            fontSize: 30.0, color: Colors.black87, fontWeight: FontWeight.w400),
+      ),
+    );
+  }
+
+  // Shows the description under the hello message.
+  Widget _showDescription() {
+    return Text(
+      "You have $userLoanedKeys borrowed keys.",
+      style: TextStyle(
+        color: Colors.black,
+      ),
+    );
+  }
+
+  // TODO: Remove after debugging.
+  Widget _showEmptyContainer() {
+    return Container(
+      width: 100.0,
+      height: 100.0,
+      child: Icon(Icons.account_circle),
+    );
+  }
+
+  // Shows Icon, hello, description.
+  Widget _showHeader() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 64.0, vertical: 32.0),
+      child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 64.0, vertical: 32.0),
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: Icon(
-                        Icons.account_circle,
-                        size: 45.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 12.0),
-                      child: Text(
-                        "Hello, $userName.",
-                        style: TextStyle(
-                            fontSize: 30.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    Text(
-                      "Looks like feel good.",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      "You have $userLoanedKeys borrowed keys.",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  height: 350.0,
-                  child: ListView.builder(
-                    itemCount: 1,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, position) {
-                      return GestureDetector(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            child: Container(
-                              width: 250.0,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Icon(
-                                          qrCard.icon,
-                                          color: appColors[position],
-                                        ),
-                                        Icon(
-                                          Icons.more_vert,
-                                          color: Colors.grey,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8.0, vertical: 4.0),
-                                          child: Text(
-                                            "${qrCard.tasksRemaining} Tasks",
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8.0, vertical: 4.0),
-                                          child: Text(
-                                            "${qrCard.cardTitle}",
-                                            style: TextStyle(fontSize: 28.0),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: LinearProgressIndicator(
-                                            value: qrCard.taskCompletion,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            )
-          ],
+          children: <Widget>[_showIcon(), _showWelcome(), _showDescription()],
         ),
       ),
     );
+  }
+
+  Widget _showCard1() {
+    return new Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
+        child: Card(
+          elevation: 5.0,
+          child: Container(
+            width: 250.0,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Icon(
+                        qrCard.icon,
+                        color: appColors[0],
+                      ),
+                      Icon(
+                        Icons.more_vert,
+                        color: Colors.grey,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 4.0),
+                        child: Text(
+                          "${qrCard.tasksRemaining} Tasks",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 4.0),
+                        child: Text(
+                          "${qrCard.cardTitle}",
+                          style: TextStyle(fontSize: 28.0),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: LinearProgressIndicator(
+                          value: qrCard.taskCompletion,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+        ));
+  }
+
+  Widget _showCard2() {
+    return new Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
+        child: Card(
+          elevation: 5.0,
+          child: Container(
+            width: 250.0,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Icon(
+                        qrCard.icon,
+                        color: appColors[0],
+                      ),
+                      Icon(
+                        Icons.more_vert,
+                        color: Colors.grey,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 4.0),
+                        child: Text(
+                          "${qrCard.tasksRemaining} Tasks",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 4.0),
+                        child: Text(
+                          "${qrCard.cardTitle}",
+                          style: TextStyle(fontSize: 28.0),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: LinearProgressIndicator(
+                          value: qrCard.taskCompletion,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+        ));
+  }
+
+  Widget _showCards() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              height: 1850.0,
+              child: ListView.builder(
+                itemCount: 3,
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, position) {
+                  return GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        elevation: 5.0,
+                        child: Container(
+                          width: 250.0,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Icon(
+                                      qrCard.icon,
+                                      color: appColors[position],
+                                    ),
+                                    Icon(
+                                      Icons.more_vert,
+                                      color: Colors.grey,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0, vertical: 4.0),
+                                      child: Text(
+                                        "${qrCard.tasksRemaining} Tasks",
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0, vertical: 4.0),
+                                      child: Text(
+                                        "${qrCard.cardTitle}",
+                                        style: TextStyle(fontSize: 28.0),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: LinearProgressIndicator(
+                                        value: qrCard.taskCompletion,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+        backgroundColor: currentColor,
+        body: Stack(
+          children: <Widget>[
+            _showBody(),
+          ],
+        ));
   }
 }

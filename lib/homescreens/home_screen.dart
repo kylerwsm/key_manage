@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:key_manage/homescreens/home_tab.dart';
 import 'package:key_manage/homescreens/key_tab.dart';
+import 'package:key_manage/homescreens/noti_tab.dart';
+import 'package:key_manage/homescreens/account_tab.dart';
 import 'package:key_manage/services/authentication.dart';
-import 'tab_screens.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.auth, this.userId, this.onSignedOut})
@@ -22,8 +23,19 @@ class _MyHomePageState extends State<MyHomePage> {
   int currentTabIndex = 0;
   bool _isEmailVerified = false;
 
-  List<Widget> tabs = [HomeTab(), KeyTab(), NotiScreen(), AccountScreen()];
+  List<Widget> tabs = [HomeTab(), KeyTab(), NotiTab(), AccountTab()];
   List<String> tabNames = ['Home', 'Keys', 'Notifications', 'Account'];
+  List<Color> tabColors = [
+    // Make all tab colors the same.
+    Color.fromRGBO(231, 129, 109, 1.0),
+    Color.fromRGBO(231, 129, 109, 1.0),
+    Color.fromRGBO(231, 129, 109, 1.0),
+    Color.fromRGBO(231, 129, 109, 1.0),
+    // Other tab colors archived.
+    Color.fromRGBO(99, 138, 223, 1.0),
+    Color.fromRGBO(111, 194, 173, 1.0),
+    Color.fromRGBO(231, 129, 109, 1.0)
+  ];
 
   @override
   void initState() {
@@ -116,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
             tabNames[currentTabIndex],
             style: TextStyle(fontSize: 20.0),
           ),
-          backgroundColor: Color.fromRGBO(231, 129, 109, 1.0),
+          backgroundColor: tabColors[currentTabIndex],
           centerTitle: true,
           actions: <Widget>[
             Padding(
@@ -128,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 )),
           ],
-          elevation: 0.0,
+          // elevation: 0.0,
         ),
         body: tabs[currentTabIndex],
         bottomNavigationBar: BottomNavigationBar(
@@ -138,19 +150,19 @@ class _MyHomePageState extends State<MyHomePage> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              title: Text('Home'),
+              title: Text(tabNames[0]),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.vpn_key),
-              title: Text('Keys'),
+              title: Text(tabNames[1]),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.notifications),
-              title: Text('Notifications'),
+              title: Text(tabNames[2]),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.account_circle),
-              title: Text('Account'),
+              title: Text(tabNames[3]),
             )
           ],
         ));

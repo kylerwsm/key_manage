@@ -160,31 +160,25 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                 shrinkWrap: true,
                 children: <Widget>[
                   _showLogo(),
+                  _showErrorMessage(),
                   _showEmailInput(),
                   _showPasswordInput(),
                   _showPrimaryButton(),
                   _showSecondaryButton(),
-                  _showErrorMessage(),
                 ],
               ),
             )));
   }
 
   Widget _showErrorMessage() {
-    if (_errorMessage.length > 0 && _errorMessage != null) {
       return Padding(
-          padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+          padding: const EdgeInsets.fromLTRB(30.0, 100.0, 30.0, 0.0),
           child: new Text(_errorMessage,
               style: TextStyle(
                   fontSize: 13.0,
                   color: Colors.red,
                   height: 1.0,
                   fontWeight: FontWeight.w300)));
-    } else {
-      return new Container(
-        height: 0.0,
-      );
-    }
   }
 
   Widget _showLogo() {
@@ -203,7 +197,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   Widget _showEmailInput() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(30.0, 100.0, 30.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
       child: new TextFormField(
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,

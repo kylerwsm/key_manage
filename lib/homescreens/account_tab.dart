@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:key_manage/homescreens/card_item_model.dart';
 
-class HomeTab extends StatefulWidget {
+class AccountTab extends StatefulWidget {
   @override
-  _HomeTabState createState() => new _HomeTabState();
+  _AccountTabState createState() => new _AccountTabState();
 }
 
-class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
+class _AccountTabState extends State<AccountTab> with TickerProviderStateMixin {
   var appColors = [
     Color.fromRGBO(231, 129, 109, 1.0),
     Color.fromRGBO(99, 138, 223, 1.0),
@@ -39,6 +39,10 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: currentColor
+    );
+    /*
     return new Scaffold(
       backgroundColor: currentColor,
       appBar: new AppBar(
@@ -229,5 +233,6 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
       ),
       drawer: Drawer(),
     );
+    */
   }
 }

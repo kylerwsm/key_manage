@@ -7,14 +7,9 @@ class KeyTab extends StatefulWidget {
 }
 
 class _KeyTabState extends State<KeyTab> with TickerProviderStateMixin {
-  var appColors = [
-    Color.fromRGBO(231, 129, 109, 1.0),
-    Color.fromRGBO(99, 138, 223, 1.0),
-    Color.fromRGBO(111, 194, 173, 1.0)
-  ];
   var cardIndex = 0;
   ScrollController scrollController;
-  var currentColor = Color.fromRGBO(231, 129, 109, 1.0);
+  var currentColor = Color.fromRGBO(99, 138, 223, 1.0);
 
   var cardsList = [
     CardItemModel("Personal", Icons.account_circle, 9, 0.83),
@@ -115,7 +110,7 @@ class _KeyTabState extends State<KeyTab> with TickerProviderStateMixin {
                                       children: <Widget>[
                                         Icon(
                                           cardsList[position].icon,
-                                          color: appColors[position],
+                                          color: currentColor,
                                         ),
                                         Icon(
                                           Icons.more_vert,
@@ -182,15 +177,13 @@ class _KeyTabState extends State<KeyTab> with TickerProviderStateMixin {
                             if (cardIndex > 0) {
                               cardIndex--;
                               colorTween = ColorTween(
-                                  begin: currentColor,
-                                  end: appColors[cardIndex]);
+                                  begin: currentColor, end: currentColor);
                             }
                           } else {
                             if (cardIndex < 2) {
                               cardIndex++;
                               colorTween = ColorTween(
-                                  begin: currentColor,
-                                  end: appColors[cardIndex]);
+                                  begin: currentColor, end: currentColor);
                             }
                           }
                           setState(() {

@@ -129,11 +129,11 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
                   ),
                 ),
                 Center(
-                  child: Container(
-                    height: 200.0,
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: _getQrCode()))),
+                    child: Container(
+                        height: 200.0,
+                        child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: _getQrCode()))),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(

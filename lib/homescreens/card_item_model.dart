@@ -4,9 +4,9 @@ class CardItemModel {
 
   String cardTitle;
   IconData icon;
-  int tasksRemaining;
-  double taskCompletion;
+  var description;
+  double percentDone;
 
-  CardItemModel(this.cardTitle, this.icon, this.tasksRemaining, this.taskCompletion);
+  CardItemModel(this.cardTitle, this.icon, this.description, this.percentDone);
 
 }

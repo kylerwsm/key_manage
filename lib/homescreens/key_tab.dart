@@ -129,7 +129,7 @@ class _KeyTabState extends State<KeyTab> with TickerProviderStateMixin {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0, vertical: 4.0),
                                           child: Text(
-                                            "${cardsList[position].tasksRemaining} Tasks",
+                                            "${cardsList[position].description} Tasks",
                                             style:
                                                 TextStyle(color: Colors.grey),
                                           ),
@@ -146,7 +146,7 @@ class _KeyTabState extends State<KeyTab> with TickerProviderStateMixin {
                                           padding: const EdgeInsets.all(8.0),
                                           child: LinearProgressIndicator(
                                             value: cardsList[position]
-                                                .taskCompletion,
+                                                .percentDone,
                                           ),
                                         ),
                                       ],

@@ -13,6 +13,8 @@ abstract class BaseAuth {
   Future<void> signOut();
 
   Future<bool> isEmailVerified();
+
+  Future<void> resetPassword(String email);
 }
 
 class Auth implements BaseAuth {

@@ -5,11 +5,13 @@ import 'package:key_manage/homescreens/noti_tab.dart';
 import 'package:key_manage/homescreens/account_tab.dart';
 import 'package:key_manage/homescreens/empty_screens.dart';
 import 'package:key_manage/services/authentication.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.auth, this.userId, this.onSignedOut})
+  MyHomePage({this.key, this.auth, this.userId, this.onSignedOut})
       : super(key: key);
 
+  final Key key;
   final BaseAuth auth;
   final VoidCallback onSignedOut;
   final String userId;
@@ -28,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> tabs1 = [HomeTab(), KeyTab(), NotiTab(), AccountTab()];
 
   // The stub I am using now.
-  List<Widget> tabs = [HomeTab(), EmptyTab(), EmptyTab(), EmptyTab()];
+  List<Widget> tabs;
 
   List<String> tabNames = ['Home', 'Keys', 'Notifications', 'Account'];
   List<Color> tabColors = [
@@ -47,6 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _checkEmailVerification();
+    _initVariables();
+  }
+
+  void _initVariables() {
+    tabs = [HomeTab(key: widget.key, auth: widget.auth, userId: widget.userId), EmptyTab(), EmptyTab(), EmptyTab()];
   }
 
   // This method prompts the user to verify email.

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:key_manage/homescreens/card_item_model.dart';
+import 'package:key_manage/services/authentication.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class HomeTab extends StatefulWidget {
+  HomeTab({Key key, this.auth, this.userId}) : super(key: key);
+
+  final BaseAuth auth;
+  final String userId;
+
   @override
   _HomeTabState createState() => new _HomeTabState();
 }
@@ -11,7 +18,8 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
   var cardIndex = 0;
   ScrollController scrollController;
   var currentColor = Colors.white;
-  var qrCard = CardItemModel("Your QR Code", Icons.code, 9, 0.83);
+  var qrCard;
+  var qrCardIconColor = Color.fromRGBO(231, 129, 109, 1.0);
 
   AnimationController animationController;
   ColorTween colorTween;
@@ -25,7 +33,12 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
     // TODO: Update userName from Auth.
     // TODO: Update keys on loan.
     super.initState();
-    scrollController = new ScrollController();
+    _makeQRCard();
+  }
+
+  void _makeQRCard() {
+    qrCard = CardItemModel("Your QR Code", Icons.code, widget.userId, null);
+    print('The QR userID is ${widget.userId}');
   }
 
   // Shows the content on the page.
@@ -47,7 +60,7 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
       child: Icon(
         Icons.wb_sunny,
         size: 45.0,
-        color: Color.fromRGBO(231, 129, 109, 1.0),
+        color: iconColor,
       ),
     );
   }
@@ -87,6 +100,7 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
     );
   }
 
+  // Displays the QR card on the hometab.
   Widget _showQRCard() {
     return new Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
@@ -105,7 +119,7 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
                     children: <Widget>[
                       Icon(
                         qrCard.icon,
-                        color: iconColor,
+                        color: qrCardIconColor,
                       ),
                       Icon(
                         Icons.more_vert,
@@ -114,6 +128,12 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
+                Center(
+                  child: Container(
+                    height: 200.0,
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: _getQrCode()))),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -123,7 +143,7 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 4.0),
                         child: Text(
-                          "${qrCard.tasksRemaining} Tasks",
+                          "Your code: ${qrCard.description}",
                           style: TextStyle(color: Colors.grey),
                         ),
                       ),
@@ -138,7 +158,7 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: LinearProgressIndicator(
-                          value: qrCard.taskCompletion,
+                          value: qrCard.percentDone,
                         ),
                       ),
                     ],
@@ -150,6 +170,17 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
         ));
+  }
+
+  // Generates QR based on userID.
+  Widget _getQrCode() {
+    return QrImage(
+      data: widget.userId,
+      // size: 0.5 * bodyHeight,
+      onError: (ex) {
+        print("[QR] ERROR - $ex");
+      },
+    );
   }
 
   @override

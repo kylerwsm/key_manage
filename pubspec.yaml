@@ -22,6 +22,9 @@ dependencies:
       url: git://github.com/lukef/qr.flutter.git
       ref: 2.0.0-dev.1
 
+  # The follow allows the formatting for dates.
+  intl: ^0.15.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

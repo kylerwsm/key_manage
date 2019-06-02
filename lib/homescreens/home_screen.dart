@@ -53,7 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _initVariables() {
-    tabs = [HomeTab(key: widget.key, auth: widget.auth, userId: widget.userId), EmptyTab(), EmptyTab(), EmptyTab()];
+    tabs = [HomeTab(key: widget.key, auth: widget.auth, userId: widget.userId),
+    KeyTab(key: widget.key, auth: widget.auth, userId: widget.userId), EmptyTab(), EmptyTab()];
   }
 
   // This method prompts the user to verify email.

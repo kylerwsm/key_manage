@@ -14,7 +14,7 @@ class HomeTab extends StatefulWidget {
   _HomeTabState createState() => new _HomeTabState();
 }
 
-class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
+class _HomeTabState extends State<HomeTab> {
   var iconColor = Color.fromRGBO(231, 129, 109, 1.0);
   var cardIndex = 0;
   ScrollController scrollController;

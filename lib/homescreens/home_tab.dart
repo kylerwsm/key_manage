@@ -7,11 +7,7 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
-  var appColors = [
-    Color.fromRGBO(231, 129, 109, 1.0),
-    Color.fromRGBO(99, 138, 223, 1.0),
-    Color.fromRGBO(111, 194, 173, 1.0)
-  ];
+  var iconColor = Color.fromRGBO(231, 129, 109, 1.0);
   var cardIndex = 0;
   ScrollController scrollController;
   var currentColor = Colors.white;
@@ -109,7 +105,7 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
                     children: <Widget>[
                       Icon(
                         qrCard.icon,
-                        color: appColors[0],
+                        color: iconColor,
                       ),
                       Icon(
                         Icons.more_vert,

@@ -15,8 +15,7 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
   var cardIndex = 0;
   ScrollController scrollController;
   var currentColor = Colors.white;
-
-  var qrCard = CardItemModel("Your QR Code", Icons.account_circle, 9, 0.83);
+  var qrCard = CardItemModel("Your QR Code", Icons.code, 9, 0.83);
 
   AnimationController animationController;
   ColorTween colorTween;
@@ -40,10 +39,7 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
       shrinkWrap: true,
       children: <Widget>[
         _showHeader(),
-        _showCard1(),
-        _showCard2(),
-        _showCard1(),
-        _showCard2()
+        _showQRCard(),
       ],
     );
   }
@@ -53,7 +49,7 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Icon(
-        Icons.account_circle,
+        Icons.wb_sunny,
         size: 45.0,
         color: Color.fromRGBO(231, 129, 109, 1.0),
       ),
@@ -82,15 +78,6 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
     );
   }
 
-  // TODO: Remove after debugging.
-  Widget _showEmptyContainer() {
-    return Container(
-      width: 100.0,
-      height: 100.0,
-      child: Icon(Icons.account_circle),
-    );
-  }
-
   // Shows Icon, hello, description.
   Widget _showHeader() {
     return Padding(
@@ -104,7 +91,7 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
     );
   }
 
-  Widget _showCard1() {
+  Widget _showQRCard() {
     return new Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
         child: Card(
@@ -167,160 +154,6 @@ class _HomeTabState extends State<HomeTab> with TickerProviderStateMixin {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
         ));
-  }
-
-  Widget _showCard2() {
-    return new Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
-        child: Card(
-          elevation: 5.0,
-          child: Container(
-            width: 250.0,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Icon(
-                        qrCard.icon,
-                        color: appColors[0],
-                      ),
-                      Icon(
-                        Icons.more_vert,
-                        color: Colors.grey,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 4.0),
-                        child: Text(
-                          "${qrCard.tasksRemaining} Tasks",
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 4.0),
-                        child: Text(
-                          "${qrCard.cardTitle}",
-                          style: TextStyle(fontSize: 28.0),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: LinearProgressIndicator(
-                          value: qrCard.taskCompletion,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-        ));
-  }
-
-  Widget _showCards() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              height: 1850.0,
-              child: ListView.builder(
-                itemCount: 3,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, position) {
-                  return GestureDetector(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        elevation: 5.0,
-                        child: Container(
-                          width: 250.0,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Icon(
-                                      qrCard.icon,
-                                      color: appColors[position],
-                                    ),
-                                    Icon(
-                                      Icons.more_vert,
-                                      color: Colors.grey,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0, vertical: 4.0),
-                                      child: Text(
-                                        "${qrCard.tasksRemaining} Tasks",
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0, vertical: 4.0),
-                                      child: Text(
-                                        "${qrCard.cardTitle}",
-                                        style: TextStyle(fontSize: 28.0),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: LinearProgressIndicator(
-                                        value: qrCard.taskCompletion,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        )
-      ],
-    );
   }
 
   @override

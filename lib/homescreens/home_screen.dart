@@ -3,6 +3,7 @@ import 'package:key_manage/homescreens/home_tab.dart';
 import 'package:key_manage/homescreens/key_tab.dart';
 import 'package:key_manage/homescreens/noti_tab.dart';
 import 'package:key_manage/homescreens/account_tab.dart';
+import 'package:key_manage/homescreens/empty_screens.dart';
 import 'package:key_manage/services/authentication.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -23,7 +24,12 @@ class _MyHomePageState extends State<MyHomePage> {
   int currentTabIndex = 0;
   bool _isEmailVerified = false;
 
-  List<Widget> tabs = [HomeTab(), KeyTab(), NotiTab(), AccountTab()];
+  // The one to use in the end.
+  List<Widget> tabs1 = [HomeTab(), KeyTab(), NotiTab(), AccountTab()];
+
+  // The stub I am using now.
+  List<Widget> tabs = [HomeTab(), EmptyTab(), EmptyTab(), EmptyTab()];
+
   List<String> tabNames = ['Home', 'Keys', 'Notifications', 'Account'];
   List<Color> tabColors = [
     // Make all tab colors the same.

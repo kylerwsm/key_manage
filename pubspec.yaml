@@ -17,7 +17,10 @@ dependencies:
   # https://medium.com/flutter-community/building-flutter-qr-code-generator-scanner-and-sharing-app-703e73b228d3
   path_provider: 0.4.1
   barcode_scan: ^0.0.4
-  qr_flutter: ^1.1.1
+  qr_flutter:
+    git:
+      url: git://github.com/lukef/qr.flutter.git
+      ref: 2.0.0-dev.1
 
 dev_dependencies:
   flutter_test:

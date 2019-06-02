@@ -7,7 +7,3 @@
 build/
 
 .flutter-plugins
-ios/Podfile.lock
-ios/Runner.xcodeproj/project.pbxproj
-ios/Podfile.lock
-ios/Runner.xcodeproj/project.pbxproj

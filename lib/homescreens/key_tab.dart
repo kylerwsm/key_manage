@@ -25,10 +25,6 @@ class _KeyTabState extends State<KeyTab> {
   var qrCardIconColor = Color.fromRGBO(231, 129, 109, 1.0);
   var keyID;
 
-  AnimationController animationController;
-  ColorTween colorTween;
-  CurvedAnimation curvedAnimation;
-
   var userName = "Stranger";
   var userLoanedKeys = 0;
   String barcode = "";
@@ -43,9 +39,7 @@ class _KeyTabState extends State<KeyTab> {
   // Adopted from:
   // https://medium.com/flutter-community/building-flutter-qr-code-generator-scanner-and-sharing-app-703e73b228d3
   void _scan() async {
-    print('Scanning QR code 1.');
     try {
-      print('Scanning QR code 2.');
       String barcode = await BarcodeScanner.scan();
       setState(() => this.barcode = barcode);
     } on PlatformException catch (e) {
@@ -74,21 +68,95 @@ class _KeyTabState extends State<KeyTab> {
     var date = new DateTime.utc(1989, 11, 9);
     var formatter = new DateFormat('dd-MM-yyyy');
     String formattedDate = formatter.format(date);
-    keyID = '123456789012';
+    keyID = '123456789';
     qrCard = CardItemModel(keyID, Icons.vpn_key, formattedDate, null);
     print('KeyID: $keyID');
   }
 
-  // Icons which show actions the user can make.
-  Widget _showActions() {
-    return new Center(
-      child: new GestureDetector(
-          child: Icon(Icons.camera),
-          onTap: () {
-            _scanQrCode();
-          },
-        )
+  Widget _buildTransferOption() {
+    Icon icon = Icon(
+      Icons.swap_horiz,
+      size: 40.0,
     );
+    Text text = Text(
+      'Transfer',
+      style: TextStyle(
+          fontSize: 12.0, color: Colors.black87, fontWeight: FontWeight.w400),
+    );
+    return new GestureDetector(
+        child: new Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[icon, text],
+          ),
+        ),
+        onTap: () {
+          _scanQrCode();
+        });
+  }
+
+  Widget _buildSearchOption() {
+    Icon icon = Icon(
+      Icons.search,
+      size: 40.0,
+    );
+    Text text = Text(
+      'Search',
+      style: TextStyle(
+          fontSize: 12.0, color: Colors.black87, fontWeight: FontWeight.w400),
+    );
+    return new GestureDetector(
+        child: new Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[icon, text],
+          ),
+        ),
+        onTap: () {});
+  }
+
+  Widget _buildRefreshOption() {
+    Icon icon = Icon(
+      Icons.refresh,
+      size: 40.0,
+    );
+    Text text = Text(
+      'Refresh',
+      style: TextStyle(
+          fontSize: 12.0, color: Colors.black87, fontWeight: FontWeight.w400),
+    );
+    return new GestureDetector(
+        child: new Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[icon, text],
+          ),
+        ),
+        onTap: () {
+          setState(() {});
+        });
+  }
+
+  Widget _showActions() {
+    Widget transferOption = _buildTransferOption();
+    Widget searchOption = _buildSearchOption();
+    Widget refreshOption = _buildRefreshOption();
+
+    return new Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 0.0),
+        child: Card(
+          elevation: 5.0,
+          child: Container(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[transferOption, searchOption, refreshOption],
+          )),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        ));
   }
 
   // Shows the content on the page.
@@ -97,71 +165,94 @@ class _KeyTabState extends State<KeyTab> {
       padding: EdgeInsets.all(16.0),
       shrinkWrap: true,
       children: <Widget>[
-        _showQRCard(),
+        _showActionsHeader(),
+        _showActions(),
+        _showKeyHeader(),
+        _showKeyEntry(),
       ],
     );
   }
 
+  Widget _showActionsHeader() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(40.0, 10.0, 40.0, 0.0),
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[_actionsHeader()],
+        ),
+      ),
+    );
+  }
+
+  Widget _actionsHeader() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 12.0),
+      child: Text(
+        "Actions",
+        style: TextStyle(
+            fontSize: 18.0, color: Colors.black87, fontWeight: FontWeight.w500),
+      ),
+    );
+  }
+
+  Widget _showKeyHeader() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(40.0, 10.0, 40.0, 0.0),
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[_keyHeader()],
+        ),
+      ),
+    );
+  }
+
+  Widget _keyHeader() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 12.0),
+      child: Text(
+        "Borrowed Keys",
+        style: TextStyle(
+            fontSize: 18.0, color: Colors.black87, fontWeight: FontWeight.w500),
+      ),
+    );
+  }
+
   // Displays the QR card on the KeyTab.
-  Widget _showQRCard() {
+  Widget _showKeyEntry() {
     return new Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 0.0),
         child: Card(
           elevation: 5.0,
           child: Container(
-            width: 250.0,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Icon(
-                        qrCard.icon,
-                        color: qrCardIconColor,
+              width: 250.0,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 4.0),
+                      child: Text(
+                        "Held since ${qrCard.description}",
+                        style: TextStyle(color: Colors.grey),
                       ),
-                      Icon(
-                        Icons.more_vert,
-                        color: Colors.grey,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 4.0),
+                      child: Text(
+                        "KeyID: ${qrCard.cardTitle}",
+                        style: TextStyle(fontSize: 20.0),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Center(
-                    // TODO: Add key content here.
-                    child: null),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 4.0),
-                        child: Text(
-                          "Held since ${qrCard.description}",
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 4.0),
-                        child: Text(
-                          "KeyID: ${qrCard.cardTitle}",
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+              )),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         ));
   }
 
@@ -171,7 +262,6 @@ class _KeyTabState extends State<KeyTab> {
         backgroundColor: currentColor,
         body: Stack(
           children: <Widget>[
-            _showActions(),
             _showBody(),
           ],
         ));

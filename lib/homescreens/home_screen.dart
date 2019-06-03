@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:key_manage/Archive/qr_scanner.dart';
 import 'package:key_manage/homescreens/home_tab.dart';
 import 'package:key_manage/homescreens/key_tab.dart';
 import 'package:key_manage/homescreens/noti_tab.dart';
 import 'package:key_manage/homescreens/account_tab.dart';
 import 'package:key_manage/homescreens/empty_screens.dart';
 import 'package:key_manage/services/authentication.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({this.key, this.auth, this.userId, this.onSignedOut})

@@ -26,25 +26,28 @@ class _HomeTabState extends State<HomeTab> {
   ColorTween colorTween;
   CurvedAnimation curvedAnimation;
 
-  var userName = "Stranger";
+  var userName = '';
   var userLoanedKeys = 0;
 
   @override
   void initState() {
     // TODO: Update keys on loan.
     super.initState();
-    _initialiseVariables();
-    _makeQRCard();
+    _initialiseName();
   }
 
-  void _initialiseVariables() async {
+  void _initialiseName() async {
     userName = await widget.auth.getDisplayName();
-    print('User\'s display name is $userName');
+    if (userName == null) {
+      String userEmail = await widget.auth.getEmail();
+      String userName = userEmail.split('@')[0];
+      widget.auth.updateDisplayName(userName);
+    }
+    setState(() {});
   }
 
   void _makeQRCard() {
     qrCard = CardItemModel("Your QR Code", Icons.code, widget.userId, null);
-    print('The QR userID is ${widget.userId}');
   }
 
   // Shows the content on the page.
@@ -76,15 +79,15 @@ class _HomeTabState extends State<HomeTab> {
     var hourOfDay = TimeOfDay.now().hour;
 
     if (hourOfDay < 6) {
-      iconData = icons[3];  // Night
+      iconData = icons[3]; // Night
     } else if (hourOfDay < 12) {
-      iconData = icons[0];  // Morning
+      iconData = icons[0]; // Morning
     } else if (hourOfDay < 17) {
-      iconData = icons[1];  // Afternoon
+      iconData = icons[1]; // Afternoon
     } else if (hourOfDay < 22) {
-      iconData = icons[2];  // Evening
+      iconData = icons[2]; // Evening
     } else {
-      iconData = icons[3];  // Night
+      iconData = icons[3]; // Night
     }
 
     return Padding(
@@ -134,6 +137,7 @@ class _HomeTabState extends State<HomeTab> {
 
   // Displays the QR card on the hometab.
   Widget _showQRCard() {
+    _makeQRCard();
     return new Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
         child: Card(

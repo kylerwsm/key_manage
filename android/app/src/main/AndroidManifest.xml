@@ -7,6 +7,10 @@
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <!-- This is required for QR code scanning via barcode_scan.
+    -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
@@ -23,6 +27,7 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
+        <activity android:name="com.apptreesoftware.barcodescan.BarcodeScannerActivity"/>
             <!-- This keeps the window background of the activity showing
                  until Flutter renders its first frame. It can be removed if
                  there is no splash screen (such as the default splash screen

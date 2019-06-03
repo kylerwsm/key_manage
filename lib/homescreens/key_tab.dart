@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:key_manage/homescreens/card_item_model.dart';
 import 'package:key_manage/services/authentication.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/services.dart';
 
 class KeyTab extends StatefulWidget {
   KeyTab({Key key, this.auth, this.userId}) : super(key: key);
@@ -30,13 +32,43 @@ class _KeyTabState extends State<KeyTab> {
 
   var userName = "Stranger";
   var userLoanedKeys = 0;
+  String barcode = "";
 
   @override
   void initState() {
-    // TODO: Update userName from Auth.
-    // TODO: Update keys on loan.
     super.initState();
     _makeQRCard();
+  }
+
+  // Scans a bar code and saves the result into barcode variable.
+  // Adopted from:
+  // https://medium.com/flutter-community/building-flutter-qr-code-generator-scanner-and-sharing-app-703e73b228d3
+  void _scan() async {
+    print('Scanning QR code 1.');
+    try {
+      print('Scanning QR code 2.');
+      String barcode = await BarcodeScanner.scan();
+      setState(() => this.barcode = barcode);
+    } on PlatformException catch (e) {
+      if (e.code == BarcodeScanner.CameraAccessDenied) {
+        setState(() {
+          this.barcode = 'The application requires camera permission.';
+        });
+      } else {
+        setState(() => this.barcode = 'Unknown error: $e');
+      }
+    } on FormatException {
+      setState(() => this.barcode = 'null.');
+      print(
+          'null (User returned using the "back"-button before scanning anything)');
+    } catch (e) {
+      setState(() => this.barcode = 'Unknown error.');
+      print('Unknown error: $e');
+    }
+  }
+
+  void _scanQrCode() {
+    _scan();
   }
 
   void _makeQRCard() {
@@ -46,6 +78,18 @@ class _KeyTabState extends State<KeyTab> {
     keyID = '123456789012';
     qrCard = CardItemModel(keyID, Icons.vpn_key, formattedDate, null);
     print('KeyID: $keyID');
+  }
+
+  // Icons which show actions the user can make.
+  Widget _showActions() {
+    return new Center(
+      child: new GestureDetector(
+          child: Icon(Icons.camera),
+          onTap: () {
+            _scanQrCode();
+          },
+        )
+    );
   }
 
   // Shows the content on the page.
@@ -122,22 +166,13 @@ class _KeyTabState extends State<KeyTab> {
         ));
   }
 
-  // Generates QR based on userID.
-  Widget _getQrCode(String keyID) {
-    return QrImage(
-      data: keyID,
-      onError: (ex) {
-        print("[QR] ERROR - $ex");
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
         backgroundColor: currentColor,
         body: Stack(
           children: <Widget>[
+            _showActions(),
             _showBody(),
           ],
         ));

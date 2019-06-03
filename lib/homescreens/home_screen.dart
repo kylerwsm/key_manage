@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:key_manage/Archive/qr_scanner.dart';
 import 'package:key_manage/homescreens/home_tab.dart';
 import 'package:key_manage/homescreens/key_tab.dart';
 import 'package:key_manage/homescreens/noti_tab.dart';

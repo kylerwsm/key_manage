@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:key_manage/homescreens/card_item_model.dart';
 import 'package:key_manage/services/authentication.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
@@ -24,7 +23,7 @@ class _KeyTabState extends State<KeyTab> {
   var currentColor = Colors.white;
   var qrCard;
   var qrCardIconColor = Color.fromRGBO(231, 129, 109, 1.0);
-  var keyID = null;
+  var keyID;
 
   AnimationController animationController;
   ColorTween colorTween;

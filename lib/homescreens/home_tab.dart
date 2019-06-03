@@ -31,10 +31,15 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   void initState() {
-    // TODO: Update userName from Auth.
     // TODO: Update keys on loan.
     super.initState();
+    _initialiseVariables();
     _makeQRCard();
+  }
+
+  void _initialiseVariables() async {
+    userName = await widget.auth.getDisplayName();
+    print('User\'s display name is $userName');
   }
 
   void _makeQRCard() {

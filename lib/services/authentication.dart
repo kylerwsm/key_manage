@@ -8,6 +8,14 @@ abstract class BaseAuth {
 
   Future<FirebaseUser> getCurrentUser();
 
+  Future<String> getDisplayName();
+
+  Future<String> getPhotoUrl();
+
+  Future<String> getEmail();
+
+  Future<String> getPhoneNumber();
+
   Future<void> sendEmailVerification();
 
   Future<void> signOut();
@@ -37,6 +45,26 @@ class Auth implements BaseAuth {
     return user;
   }
 
+  Future<String> getDisplayName() async {
+    FirebaseUser user = await _firebaseAuth.currentUser();
+    return user.displayName;
+  }
+
+  Future<String> getPhotoUrl() async {
+    FirebaseUser user = await _firebaseAuth.currentUser();
+    return user.photoUrl;
+  }
+
+  Future<String> getEmail() async {
+    FirebaseUser user = await _firebaseAuth.currentUser();
+    return user.email;
+  }
+
+  Future<String> getPhoneNumber() async {
+    FirebaseUser user = await _firebaseAuth.currentUser();
+    return user.phoneNumber;
+  }
+
   Future<void> signOut() async {
     return _firebaseAuth.signOut();
   }
@@ -53,5 +81,16 @@ class Auth implements BaseAuth {
 
   Future<void> resetPassword(String email) async {
     await _firebaseAuth.sendPasswordResetEmail(email: email);
+  }
+
+  Future<void> updateDisplayName(String newDisplayName) async {
+    var userUpdateInfo = new UserUpdateInfo();
+    userUpdateInfo.displayName = newDisplayName;
+    _updateUserProfile(userUpdateInfo);
+  }
+
+  Future<void> _updateUserProfile(UserUpdateInfo userUpdateInfo) async {
+    var user = await getCurrentUser();
+    user.updateProfile(userUpdateInfo);
   }
 }

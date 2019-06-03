@@ -5,6 +5,7 @@ import 'package:key_manage/services/authentication.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 class KeyTab extends StatefulWidget {
   KeyTab({Key key, this.auth, this.userId}) : super(key: key);
@@ -19,13 +20,10 @@ class KeyTab extends StatefulWidget {
 class _KeyTabState extends State<KeyTab> {
   var iconColor = Color.fromRGBO(231, 129, 109, 1.0);
   var cardIndex = 0;
-  ScrollController scrollController;
   var currentColor = Colors.white;
   var qrCard;
   var qrCardIconColor = Color.fromRGBO(231, 129, 109, 1.0);
   var keyID;
-
-  var userName = "Stranger";
   var userLoanedKeys = 0;
   String barcode = "";
 
@@ -36,8 +34,6 @@ class _KeyTabState extends State<KeyTab> {
   }
 
   // Scans a bar code and saves the result into barcode variable.
-  // Adopted from:
-  // https://medium.com/flutter-community/building-flutter-qr-code-generator-scanner-and-sharing-app-703e73b228d3
   void _scan() async {
     try {
       String barcode = await BarcodeScanner.scan();
@@ -198,7 +194,7 @@ class _KeyTabState extends State<KeyTab> {
 
   Widget _showKeyHeader() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(40.0, 10.0, 40.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -222,7 +218,7 @@ class _KeyTabState extends State<KeyTab> {
   // Displays the QR card on the KeyTab.
   Widget _showKeyEntry() {
     return new Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 0.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
         child: Card(
           elevation: 5.0,
           child: Container(

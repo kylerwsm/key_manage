@@ -25,6 +25,9 @@ dependencies:
   # The follow allows the formatting for dates.
   intl: ^0.15.8
 
+  # To enable firestore queries
+  # cloud_firestore: 0.3.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

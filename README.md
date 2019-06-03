@@ -14,4 +14,4 @@ For help getting started with Flutter, view our online
 
 ## Credits
 * App login template adopted from @tattwei46 at tattwei46/flutter_login_demo
-* Icon made by [Pixel Buddha](https://www.flaticon.com/authors/pixel-buddha) from www.flaticon.com
+* Key icon made by [Pixel Buddha](https://www.flaticon.com/authors/pixel-buddha) from www.flaticon.com

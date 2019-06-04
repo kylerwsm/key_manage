@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:key_manage/services/authentication.dart';
 import 'package:key_manage/login_screens/root_page.dart';
+import 'package:flutter/services.dart';
 
 final applicationName = 'KeyManage';
 
@@ -11,6 +12,10 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      // DeviceOrientation.portraitDown,
+    ]);
     return new MaterialApp(
         title: applicationName,
         debugShowCheckedModeBanner: false,

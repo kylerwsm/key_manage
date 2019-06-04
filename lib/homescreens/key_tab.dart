@@ -21,8 +21,7 @@ class _KeyTabState extends State<KeyTab> {
   var iconColor = Color.fromRGBO(231, 129, 109, 1.0);
   var cardIndex = 0;
   var currentColor = Colors.white;
-  var qrCard;
-  var qrCardIconColor = Color.fromRGBO(231, 129, 109, 1.0);
+  var keyCard;
   var keyID;
   var userLoanedKeys = 0;
   String barcode = "";
@@ -65,7 +64,7 @@ class _KeyTabState extends State<KeyTab> {
     var formatter = new DateFormat('dd-MM-yyyy');
     String formattedDate = formatter.format(date);
     keyID = '123456789';
-    qrCard = CardItemModel(keyID, Icons.vpn_key, formattedDate, null);
+    keyCard = CardItemModel(keyID, Icons.vpn_key, formattedDate, null);
   }
 
   Widget _buildTransferOption() {
@@ -141,17 +140,38 @@ class _KeyTabState extends State<KeyTab> {
     Widget refreshOption = _buildRefreshOption();
 
     return new Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 0.0),
-        child: Card(
-          elevation: 5.0,
-          child: Container(
-              child: Row(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
+        child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[transferOption, searchOption, refreshOption],
-          )),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        ));
+            children: <Widget>[
+              Card(
+                elevation: 5.0,
+                child: FlatButton(
+                    padding: EdgeInsets.all(0),
+                    onPressed: () {},
+                    child: transferOption),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+              ),
+              Card(
+                elevation: 5.0,
+                child: FlatButton(
+                    padding: EdgeInsets.all(0),
+                    onPressed: () {},
+                    child: searchOption),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+              ),
+              Card(
+                elevation: 5.0,
+                child: FlatButton(
+                    padding: EdgeInsets.all(0),
+                    onPressed: () {},
+                    child: refreshOption),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+              )
+            ]));
   }
 
   // Shows the content on the page.
@@ -180,19 +200,7 @@ class _KeyTabState extends State<KeyTab> {
 
   Widget _showActionsHeader() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(40.0, 10.0, 40.0, 0.0),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[_actionsHeader()],
-        ),
-      ),
-    );
-  }
-
-  Widget _actionsHeader() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 12.0),
+      padding: const EdgeInsets.fromLTRB(20.0, 20.0, 40.0, 12.0),
       child: Text(
         "Actions",
         style: TextStyle(
@@ -203,19 +211,7 @@ class _KeyTabState extends State<KeyTab> {
 
   Widget _showKeyHeader() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[_keyHeader()],
-        ),
-      ),
-    );
-  }
-
-  Widget _keyHeader() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 00.0, 0.0, 12.0),
+      padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 12.0),
       child: Text(
         "Borrowed Keys",
         style: TextStyle(
@@ -243,7 +239,7 @@ class _KeyTabState extends State<KeyTab> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 4.0),
                           child: Text(
-                            "Held since ${qrCard.description}",
+                            "Held since ${keyCard.description}",
                             style: TextStyle(color: Colors.grey),
                           ),
                         ),
@@ -251,7 +247,7 @@ class _KeyTabState extends State<KeyTab> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 4.0),
                           child: Text(
-                            "KeyID: ${qrCard.cardTitle}",
+                            "KeyID: ${keyCard.cardTitle}",
                             style: TextStyle(fontSize: 20.0),
                           ),
                         ),

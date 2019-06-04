@@ -164,6 +164,15 @@ class _KeyTabState extends State<KeyTab> {
         _showActions(),
         _showKeyHeader(),
         _showKeyEntry(),
+        _showKeyEntry(),
+        _showKeyEntry(),
+        _showKeyEntry(),
+        _showKeyEntry(),
+        _showKeyEntry(),
+        _showKeyEntry(),
+        _showKeyEntry(),
+        _showKeyEntry(),
+        _showKeyEntry(),
       ],
     );
   }
@@ -217,7 +226,7 @@ class _KeyTabState extends State<KeyTab> {
   // Displays the QR card on the KeyTab.
   Widget _showKeyEntry() {
     return new Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
+        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
         child: Card(
           elevation: 5.0,
           child: Container(

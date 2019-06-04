@@ -33,7 +33,7 @@ class _AccountTabState extends State<AccountTab> {
 
   Widget _showUserInfo() {
     return new Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 0.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
         child: Card(
           elevation: 5.0,
           child: Padding(
@@ -63,90 +63,118 @@ class _AccountTabState extends State<AccountTab> {
         ));
   }
 
-  Widget _buildNameOption() {
-    Icon icon = Icon(
-      Icons.person,
-      size: 40.0,
-    );
-    Text text = Text(
-      'Alias',
-      style: TextStyle(
-          fontSize: 12.0, color: Colors.black87, fontWeight: FontWeight.w400),
-    );
-    return new GestureDetector(
-        child: new Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[icon, text],
-          ),
+  Widget _showUserParticularsEdit() {
+    return GestureDetector(
+      child: new Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: new Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+              child: Icon(Icons.account_circle),
+            ),
+            Container(
+              child: Text(
+                'Change Displayed Name',
+                style: TextStyle(fontSize: 16.0),
+              ),
+            )
+          ],
         ),
-        onTap: () {});
+      ),
+      onTap: () {},
+    );
   }
 
-  Widget _buildSearchOption() {
-    Icon icon = Icon(
-      Icons.search,
-      size: 40.0,
-    );
-    Text text = Text(
-      'Search',
-      style: TextStyle(
-          fontSize: 12.0, color: Colors.black87, fontWeight: FontWeight.w400),
-    );
-    return new GestureDetector(
-        child: new Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[icon, text],
-          ),
+  Widget _showChangePassword() {
+    return GestureDetector(
+      child: new Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: new Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+              child: Icon(Icons.vpn_key),
+            ),
+            Container(
+              child: Text(
+                'Change Password',
+                style: TextStyle(fontSize: 16.0),
+              ),
+            )
+          ],
         ),
-        onTap: () {});
+      ),
+      onTap: () {},
+    );
   }
 
-  Widget _buildRefreshOption() {
-    Icon icon = Icon(
-      Icons.refresh,
-      size: 40.0,
-    );
-    Text text = Text(
-      'Refresh',
-      style: TextStyle(
-          fontSize: 12.0, color: Colors.black87, fontWeight: FontWeight.w400),
-    );
-    return new GestureDetector(
-        child: new Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[icon, text],
-          ),
+  Widget _showNotificationsEdit() {
+    return GestureDetector(
+      child: new Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: new Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+              child: Icon(Icons.notifications),
+            ),
+            Container(
+              child: Text(
+                'Change Notifications',
+                style: TextStyle(fontSize: 16.0),
+              ),
+            )
+          ],
         ),
-        onTap: () {
-          setState(() {});
-        });
+      ),
+      onTap: () {},
+    );
+  }
+
+  Widget _showReportProblem() {
+    return GestureDetector(
+      child: new Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: new Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+              child: Icon(Icons.error),
+            ),
+            Container(
+              child: Text(
+                'Report a Problem',
+                style: TextStyle(fontSize: 16.0),
+              ),
+            )
+          ],
+        ),
+      ),
+      onTap: () {},
+    );
   }
 
   Widget _showAccountSettings() {
-    Widget nameOption = _buildNameOption();
-    Widget searchOption = _buildSearchOption();
-    Widget refreshOption = _buildRefreshOption();
-
     return new Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 0.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
         child: Card(
           elevation: 5.0,
-          child: Column(children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[nameOption, searchOption, refreshOption],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[nameOption, searchOption, refreshOption],
-            )
-          ]),
+          child: Column(
+            children: <Widget>[
+              _showUserParticularsEdit(),
+              Divider(),
+              _showChangePassword(),
+              Divider(),
+              _showNotificationsEdit(),
+              Divider(),
+              _showReportProblem()
+            ],
+          ),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         ));
@@ -168,7 +196,7 @@ class _AccountTabState extends State<AccountTab> {
 
   Widget _showSettingsHeader() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(40.0, 10.0, 40.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,7 +219,7 @@ class _AccountTabState extends State<AccountTab> {
 
   Widget _showAccountHeader() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(40.0, 10.0, 40.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

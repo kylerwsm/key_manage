@@ -32,39 +32,46 @@ class _AccountTabState extends State<AccountTab> {
   }
 
   Widget _showUserInfo() {
-    return new Padding(
+    return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
         child: Card(
-          elevation: 5.0,
-          child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 4.0),
-                      child: Text(
-                        "UserID: $userEmail",
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 4.0),
-                      child: Text(
-                        "User Type: $userAccessRights",
-                        style: TextStyle(fontSize: 16.0, color: Colors.grey),
-                      ),
-                    ),
-                  ])),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        ));
+            elevation: 5.0,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            child: FlatButton(
+                onPressed: () {},
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0, vertical: 4.0),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                "UserID: $userEmail",
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                            )),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0, vertical: 4.0),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                "User Type: $userAccessRights",
+                                style: TextStyle(
+                                    fontSize: 16.0, color: Colors.grey),
+                              ),
+                            )),
+                      ]),
+                ))));
   }
 
   Widget _showUserParticularsEdit() {
-    return GestureDetector(
+    return FlatButton(
       child: new Padding(
         padding: const EdgeInsets.all(15.0),
         child: new Row(
@@ -83,12 +90,12 @@ class _AccountTabState extends State<AccountTab> {
           ],
         ),
       ),
-      onTap: () {},
+      onPressed: () {},
     );
   }
 
   Widget _showChangePassword() {
-    return GestureDetector(
+    return FlatButton(
       child: new Padding(
         padding: const EdgeInsets.all(15.0),
         child: new Row(
@@ -107,12 +114,12 @@ class _AccountTabState extends State<AccountTab> {
           ],
         ),
       ),
-      onTap: () {},
+      onPressed: () {},
     );
   }
 
   Widget _showNotificationsEdit() {
-    return GestureDetector(
+    return FlatButton(
       child: new Padding(
         padding: const EdgeInsets.all(15.0),
         child: new Row(
@@ -131,12 +138,12 @@ class _AccountTabState extends State<AccountTab> {
           ],
         ),
       ),
-      onTap: () {},
+      onPressed: () {},
     );
   }
 
   Widget _showReportProblem() {
-    return GestureDetector(
+    return FlatButton(
       child: new Padding(
         padding: const EdgeInsets.all(15.0),
         child: new Row(
@@ -155,7 +162,36 @@ class _AccountTabState extends State<AccountTab> {
           ],
         ),
       ),
-      onTap: () {},
+      onPressed: _showReportProblemInstructions,
+    );
+  }
+
+  void _showReportProblemInstructions() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Report a Problem"),
+          content: new Container(
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                Text('Thank you for your initiative.'),
+                Padding(padding: const EdgeInsets.symmetric(vertical: 5.0)),
+                Text('Kindly make the issue known to HDB Helpdesk.')
+              ])),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Dismiss"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -196,7 +232,7 @@ class _AccountTabState extends State<AccountTab> {
 
   Widget _showSettingsHeader() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

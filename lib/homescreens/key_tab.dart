@@ -157,6 +157,7 @@ class _KeyTabState extends State<KeyTab> {
   // Shows the content on the page.
   Widget _showBody() {
     return new ListView(
+      controller: ScrollController(),
       padding: EdgeInsets.all(16.0),
       shrinkWrap: true,
       children: <Widget>[
@@ -202,7 +203,7 @@ class _KeyTabState extends State<KeyTab> {
 
   Widget _showKeyHeader() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,7 +215,7 @@ class _KeyTabState extends State<KeyTab> {
 
   Widget _keyHeader() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 12.0),
+      padding: const EdgeInsets.fromLTRB(0.0, 00.0, 0.0, 12.0),
       child: Text(
         "Borrowed Keys",
         style: TextStyle(
@@ -227,37 +228,80 @@ class _KeyTabState extends State<KeyTab> {
   Widget _showKeyEntry() {
     return new Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-        child: Card(
-          elevation: 5.0,
-          child: Container(
-              width: 250.0,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
+        child: GestureDetector(
+            onTap: _showKeyInfo,
+            child: Card(
+              elevation: 5.0,
+              child: Container(
+                  width: 250.0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 4.0),
+                          child: Text(
+                            "Held since ${qrCard.description}",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 4.0),
+                          child: Text(
+                            "KeyID: ${qrCard.cardTitle}",
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+            )));
+  }
+
+  void _showKeyInfo() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Key Information"),
+          content: new Container(
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 4.0),
-                      child: Text(
-                        "Held since ${qrCard.description}",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 4.0),
-                      child: Text(
-                        "KeyID: ${qrCard.cardTitle}",
-                        style: TextStyle(fontSize: 20.0),
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        ));
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child:
+                        Text('KeyID: ', style: TextStyle(color: Colors.grey))),
+                Text('123456789'),
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Divider()),
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: Text('Address Information:',
+                        style: TextStyle(color: Colors.grey))),
+                Text('Block 123, Pasir Ris Street 13'),
+                Text('#01-101'),
+                Text('Singapore 123123'),
+              ])),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Dismiss"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override

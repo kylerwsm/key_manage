@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c304e8f-8b51-4d03-af7a-d0fd71e71afd" name="Default" comment="Added account information summary">
+    <list default="true" id="9c304e8f-8b51-4d03-af7a-d0fd71e71afd" name="Default" comment="Completed basic interface for account tab">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/homescreens/account_tab.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/homescreens/account_tab.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/homescreens/key_tab.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/homescreens/key_tab.dart" afterDir="false" />
@@ -21,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/homescreens/key_tab.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="545">
-              <caret line="226" column="25" selection-start-line="226" selection-start-column="25" selection-end-line="226" selection-end-column="25" />
+            <state relative-caret-position="370">
+              <caret line="212" column="6" lean-forward="true" selection-start-line="212" selection-start-column="6" selection-end-line="212" selection-end-column="6" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
                 <element signature="e#1044#1731#0" />
@@ -34,31 +34,40 @@
                 <element signature="e#2105#2683#0" />
                 <element signature="e#2715#3253#0" />
                 <element signature="e#3286#3862#0" />
-                <element signature="e#3888#4511#0" />
-                <element signature="e#4840#5108#0" />
-                <element signature="e#5136#5386#0" />
-                <element signature="e#5414#5678#0" />
-                <element signature="e#5702#5958#0" />
-                <element signature="e#6026#7313#0" />
-                <element signature="e#7364#7534#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/homescreens/account_tab.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1650">
-              <caret line="146" column="37" selection-start-line="146" selection-start-column="37" selection-end-line="146" selection-end-column="37" />
+            <state relative-caret-position="422">
+              <caret line="234" column="48" selection-start-line="234" selection-start-column="48" selection-end-line="234" selection-end-column="48" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
-                <element signature="e#644#848#0" />
-                <element signature="e#871#2057#0" />
-                <element signature="e#4763#5014#0" />
-                <element signature="e#5047#5660#0" />
-                <element signature="e#5692#6301#0" />
-                <element signature="e#6352#6531#0" />
+                <element signature="e#645#844#0" />
+                <element signature="e#871#2509#0" />
+                <element signature="e#2547#3149#0" />
+                <element signature="e#3182#3771#0" />
+                <element signature="e#3807#4407#0" />
+                <element signature="e#4439#5052#0" />
+                <element signature="e#5094#5976#0" />
+                <element signature="e#6010#6588#0" />
+                <element signature="e#5250#5501#0" />
+                <element signature="e#6179#6788#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/homescreens/home_screen.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="481">
+              <caret line="116" column="8" selection-start-line="116" selection-start-column="8" selection-end-line="116" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -84,8 +93,8 @@
         <option value="$PROJECT_DIR$/lib/root_page.dart" />
         <option value="$PROJECT_DIR$/lib/auth.dart" />
         <option value="$PROJECT_DIR$/lib/homescreens/home_tab.dart" />
-        <option value="$PROJECT_DIR$/lib/homescreens/key_tab.dart" />
         <option value="$PROJECT_DIR$/lib/homescreens/account_tab.dart" />
+        <option value="$PROJECT_DIR$/lib/homescreens/key_tab.dart" />
       </list>
     </option>
   </component>
@@ -215,14 +224,21 @@
       <option name="project" value="LOCAL" />
       <updated>1559613060983</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Completed basic interface for account tab">
+      <created>1559617206936</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1559617206936</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2536349" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2536349" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Build Variants" order="3" side_tool="true" />
@@ -234,7 +250,7 @@
       <window_info anchor="bottom" id="Flutter Performance" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32739726" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32739726" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3992095" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -244,7 +260,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Logcat" order="10" />
       <window_info anchor="bottom" id="Version Control" order="11" />
-      <window_info anchor="bottom" id="Terminal" order="12" weight="0.32806325" />
+      <window_info anchor="bottom" id="Terminal" order="12" weight="0.32739726" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32938075" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -260,7 +276,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Minor refraction to existing files" />
     <MESSAGE value="Added account information summary" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added account information summary" />
+    <MESSAGE value="Completed basic interface for account tab" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed basic interface for account tab" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/lib/home_page.dart" />
@@ -295,15 +312,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/homescreens/home_screen.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/homescreens/home_tab.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1275">
@@ -314,10 +322,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/homescreens/home_screen.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="116" column="8" selection-start-line="116" selection-start-column="8" selection-end-line="116" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/homescreens/account_tab.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="234" column="48" selection-start-line="234" selection-start-column="48" selection-end-line="234" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+            <element signature="e#645#844#0" />
+            <element signature="e#871#2509#0" />
+            <element signature="e#2547#3149#0" />
+            <element signature="e#3182#3771#0" />
+            <element signature="e#3807#4407#0" />
+            <element signature="e#4439#5052#0" />
+            <element signature="e#5094#5976#0" />
+            <element signature="e#6010#6588#0" />
+            <element signature="e#5250#5501#0" />
+            <element signature="e#6179#6788#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/homescreens/key_tab.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="226" column="25" selection-start-line="226" selection-start-column="25" selection-end-line="226" selection-end-column="25" />
+        <state relative-caret-position="370">
+          <caret line="212" column="6" lean-forward="true" selection-start-line="212" selection-start-column="6" selection-end-line="212" selection-end-column="6" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
             <element signature="e#1044#1731#0" />
@@ -326,29 +364,6 @@
             <element signature="e#2105#2683#0" />
             <element signature="e#2715#3253#0" />
             <element signature="e#3286#3862#0" />
-            <element signature="e#3888#4511#0" />
-            <element signature="e#4840#5108#0" />
-            <element signature="e#5136#5386#0" />
-            <element signature="e#5414#5678#0" />
-            <element signature="e#5702#5958#0" />
-            <element signature="e#6026#7313#0" />
-            <element signature="e#7364#7534#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/homescreens/account_tab.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1650">
-          <caret line="146" column="37" selection-start-line="146" selection-start-column="37" selection-end-line="146" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-            <element signature="e#644#848#0" />
-            <element signature="e#871#2057#0" />
-            <element signature="e#4763#5014#0" />
-            <element signature="e#5047#5660#0" />
-            <element signature="e#5692#6301#0" />
-            <element signature="e#6352#6531#0" />
           </folding>
         </state>
       </provider>

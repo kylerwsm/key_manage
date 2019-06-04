@@ -66,7 +66,6 @@ class _KeyTabState extends State<KeyTab> {
     String formattedDate = formatter.format(date);
     keyID = '123456789';
     qrCard = CardItemModel(keyID, Icons.vpn_key, formattedDate, null);
-    print('KeyID: $keyID');
   }
 
   Widget _buildTransferOption() {

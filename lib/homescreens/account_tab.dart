@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:key_manage/models/card_item_model.dart';
 import 'package:key_manage/services/authentication.dart';
-import 'package:intl/intl.dart';
 
 class AccountTab extends StatefulWidget {
   AccountTab({Key key, this.auth, this.userId}) : super(key: key);
@@ -15,26 +13,21 @@ class AccountTab extends StatefulWidget {
 }
 
 class _AccountTabState extends State<AccountTab> {
-  var iconColor = Color.fromRGBO(231, 129, 109, 1.0);
-  var cardIndex = 0;
-  ScrollController scrollController;
-  var currentColor = Colors.white;
-  var qrCard;
-  var qrCardIconColor = Color.fromRGBO(231, 129, 109, 1.0);
-  var keyID;
-
-  var userName;
-  var userLoanedKeys = 0;
-  String barcode = "";
+  var screenBackgroundColor = Colors.white;
+  var userEmail;
+  var userAccessRights = '';
 
   @override
   void initState() {
     super.initState();
-    _initialiseUserDisplayName();
+    _initialiseUserInformation();
   }
 
-  void _initialiseUserDisplayName() async {
-    userName = await widget.auth.getDisplayName();
+  void _initialiseUserInformation() async {
+    userEmail = await widget.auth.getEmail();
+    // TODO: Check if user is admin.
+    var userIsAdmin = false;
+    userAccessRights = userIsAdmin ? 'Admin' : 'User';
     setState(() {});
   }
 
@@ -43,10 +36,28 @@ class _AccountTabState extends State<AccountTab> {
         padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 0.0),
         child: Card(
           elevation: 5.0,
-          child: Column(children: <Widget>[
-            Row(),
-            Row(),
-          ]),
+          child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 4.0),
+                      child: Text(
+                        "UserID: $userEmail",
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 4.0),
+                      child: Text(
+                        "User Type: $userAccessRights",
+                        style: TextStyle(fontSize: 16.0, color: Colors.grey),
+                      ),
+                    ),
+                  ])),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         ));
@@ -117,7 +128,7 @@ class _AccountTabState extends State<AccountTab> {
         });
   }
 
-  Widget _showActions() {
+  Widget _showAccountSettings() {
     Widget nameOption = _buildNameOption();
     Widget searchOption = _buildSearchOption();
     Widget refreshOption = _buildRefreshOption();
@@ -127,10 +138,6 @@ class _AccountTabState extends State<AccountTab> {
         child: Card(
           elevation: 5.0,
           child: Column(children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[nameOption, searchOption, refreshOption],
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[nameOption, searchOption, refreshOption],
@@ -154,7 +161,7 @@ class _AccountTabState extends State<AccountTab> {
         _showAccountHeader(),
         _showUserInfo(),
         _showSettingsHeader(),
-        _showActions(),
+        _showAccountSettings(),
       ],
     );
   }
@@ -165,19 +172,19 @@ class _AccountTabState extends State<AccountTab> {
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[_settingsHeader()],
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 12.0),
+              child: Text(
+                "Account Settings",
+                style: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w500),
+              ),
+            )
+          ],
         ),
-      ),
-    );
-  }
-
-  Widget _settingsHeader() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 12.0),
-      child: Text(
-        "Account Settings",
-        style: TextStyle(
-            fontSize: 18.0, color: Colors.black87, fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -188,19 +195,19 @@ class _AccountTabState extends State<AccountTab> {
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[_accountHeader()],
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 12.0),
+              child: Text(
+                "Your Account",
+                style: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w500),
+              ),
+            )
+          ],
         ),
-      ),
-    );
-  }
-
-  Widget _accountHeader() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 12.0),
-      child: Text(
-        "Your Account",
-        style: TextStyle(
-            fontSize: 18.0, color: Colors.black87, fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -208,7 +215,7 @@ class _AccountTabState extends State<AccountTab> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        backgroundColor: currentColor,
+        backgroundColor: screenBackgroundColor,
         body: Stack(
           children: <Widget>[
             _showBody(),

@@ -26,7 +26,7 @@ class _HomeTabState extends State<HomeTab> {
   ColorTween colorTween;
   CurvedAnimation curvedAnimation;
 
-  var userName = '';
+  var userDisplayName = '';
   var userLoanedKeys = 0;
 
   @override
@@ -36,12 +36,12 @@ class _HomeTabState extends State<HomeTab> {
     _initialiseName();
   }
 
-  void _initialiseName() async {
-    userName = await widget.auth.getDisplayName();
-    if (userName == null) {
+  Future<void> _initialiseName() async {
+    userDisplayName = await widget.auth.getDisplayName();
+    if (userDisplayName == null) {
       String userEmail = await widget.auth.getEmail();
-      String userName = userEmail.split('@')[0];
-      widget.auth.updateDisplayName(userName);
+      userDisplayName = userEmail.split('@')[0];
+      widget.auth.updateDisplayName(userDisplayName);
     }
     setState(() {});
   }
@@ -105,7 +105,7 @@ class _HomeTabState extends State<HomeTab> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 12.0),
       child: Text(
-        "Hello, $userName.",
+        "Hello, $userDisplayName.",
         style: TextStyle(
             fontSize: 30.0, color: Colors.black87, fontWeight: FontWeight.w400),
       ),

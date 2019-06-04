@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/flutter_login_demo.iml" filepath="$PROJECT_DIR$/flutter_login_demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/flutter_login_demo_android.iml" filepath="$PROJECT_DIR$/flutter_login_demo_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/key_manage.iml" filepath="$PROJECT_DIR$/.idea/key_manage.iml" />
     </modules>
   </component>
 </project>

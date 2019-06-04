@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:key_manage/homescreens/card_item_model.dart';
+import 'package:key_manage/models/card_item_model.dart';
 import 'package:key_manage/services/authentication.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:key_manage/homescreens/card_item_model.dart';
+import 'package:key_manage/models/card_item_model.dart';
 
 class NotiTab extends StatefulWidget {
   @override

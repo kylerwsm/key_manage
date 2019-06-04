@@ -15,12 +15,9 @@ dependencies:
   # The following adds QR code capabilities to the application.
   # More information from:
   # https://medium.com/flutter-community/building-flutter-qr-code-generator-scanner-and-sharing-app-703e73b228d3
-  path_provider: 0.4.1
-  barcode_scan: 0.0.8
-  qr_flutter:
-    git:
-      url: git://github.com/lukef/qr.flutter.git
-      ref: 2.0.0-dev.1
+  path_provider: 1.1.0
+  barcode_scan: 1.0.0
+  qr_flutter: 2.0.0+51
 
   # The follow allows the formatting for dates.
   intl: ^0.15.8
@@ -35,14 +32,17 @@ dev_dependencies:
   # Plugin for app launcher icons to be made from icons.
   # More information from:
   # https://stackoverflow.com/questions/43928702/how-to-change-the-application-launcher-icon-on-flutter
-  flutter_launcher_icons: "^0.6.1"
+  flutter_launcher_icons: ^0.6.1
+
+dependency_overrides:
+  image: 2.0.7
 
 # Specifies for app launcher icon to be made from image path.
 # The made icon is used for both android and ios.
 flutter_icons:
-  image_path: "assets/key.png"
   android: true
   ios: true
+  image_path: "assets/key_with_background.png"
 
 
 # For information on the generic Dart part of this file, see the

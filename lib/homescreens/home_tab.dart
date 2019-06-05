@@ -107,7 +107,7 @@ class _HomeTabState extends State<HomeTab> {
       child: Text(
         "Hello, $userDisplayName.",
         style: TextStyle(
-            fontSize: 30.0, color: Colors.black87, fontWeight: FontWeight.w400),
+            fontSize: 25.0, color: Colors.black87, fontWeight: FontWeight.w400),
       ),
     );
   }

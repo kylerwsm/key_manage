@@ -20,12 +20,11 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   String _password;
   String _errorMessage;
 
-  // Initial form is login form
+  /// Initial form is login form.
   FormMode _formMode = FormMode.LOGIN;
-  bool _isIos;
   bool _isLoading;
 
-  // Check if form is valid before perform login or signup
+  /// Check if form is valid before perform login or sign-up.
   bool _validateAndSave() {
     final form = _formKey.currentState;
     if (form.validate()) {
@@ -35,7 +34,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     return false;
   }
 
-  // Perform login or signup
+  /// Perform Email login or sign-up.
   void _validateAndSubmit() async {
     setState(() {
       _errorMessage = "";
@@ -66,10 +65,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
         print('Error: $e');
         setState(() {
           _isLoading = false;
-          if (_isIos) {
-            _errorMessage = e.details;
-          } else
-            _errorMessage = e.message;
+          _errorMessage = e.message;
         });
       }
     } else {
@@ -102,7 +98,6 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    _isIos = Theme.of(context).platform == TargetPlatform.iOS;
     return new Scaffold(
         appBar: new AppBar(
           title: new Text(

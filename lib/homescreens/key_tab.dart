@@ -33,7 +33,7 @@ class _KeyTabState extends State<KeyTab> {
   }
 
   // Scans a bar code and saves the result into barcode variable.
-  void _scan() async {
+  void _scanQrCode() async {
     try {
       String barcode = await BarcodeScanner.scan();
       setState(() => this.barcode = barcode);
@@ -55,10 +55,6 @@ class _KeyTabState extends State<KeyTab> {
     }
   }
 
-  void _scanQrCode() {
-    _scan();
-  }
-
   void _makeQRCard() {
     var date = new DateTime.utc(1989, 11, 9);
     var formatter = new DateFormat('dd-MM-yyyy');
@@ -67,110 +63,83 @@ class _KeyTabState extends State<KeyTab> {
     keyCard = CardItemModel(keyID, Icons.vpn_key, formattedDate, null);
   }
 
-  Widget _buildTransferOption() {
-    Icon icon = Icon(
-      Icons.swap_horiz,
-      size: 40.0,
-    );
-    Text text = Text(
-      'Transfer',
-      style: TextStyle(
-          fontSize: 12.0, color: Colors.black87, fontWeight: FontWeight.w400),
-    );
-    return new GestureDetector(
-        child: new Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[icon, text],
-          ),
-        ),
-        onTap: () {
-          _scanQrCode();
-        });
-  }
-
-  Widget _buildSearchOption() {
-    Icon icon = Icon(
-      Icons.search,
-      size: 40.0,
-    );
-    Text text = Text(
-      'Search',
-      style: TextStyle(
-          fontSize: 12.0, color: Colors.black87, fontWeight: FontWeight.w400),
-    );
-    return new GestureDetector(
-        child: new Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[icon, text],
-          ),
-        ),
-        onTap: () {});
-  }
-
-  Widget _buildRefreshOption() {
-    Icon icon = Icon(
-      Icons.refresh,
-      size: 40.0,
-    );
-    Text text = Text(
-      'Refresh',
-      style: TextStyle(
-          fontSize: 12.0, color: Colors.black87, fontWeight: FontWeight.w400),
-    );
-    return new GestureDetector(
-        child: new Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[icon, text],
-          ),
-        ),
-        onTap: () {
-          setState(() {});
-        });
-  }
-
   Widget _showActions() {
-    Widget transferOption = _buildTransferOption();
-    Widget searchOption = _buildSearchOption();
-    Widget refreshOption = _buildRefreshOption();
-
     return new Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Card(
-                elevation: 5.0,
-                child: FlatButton(
-                    padding: EdgeInsets.all(0),
-                    onPressed: () {},
-                    child: transferOption),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-              ),
-              Card(
-                elevation: 5.0,
-                child: FlatButton(
-                    padding: EdgeInsets.all(0),
-                    onPressed: () {},
-                    child: searchOption),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-              ),
-              Card(
-                elevation: 5.0,
-                child: FlatButton(
-                    padding: EdgeInsets.all(0),
-                    onPressed: () {},
-                    child: refreshOption),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-              )
+              RaisedButton(
+                  elevation: 5.0,
+                  color: Colors.white,
+                  padding: EdgeInsets.all(15.0),
+                  onPressed: () {
+                    _scanQrCode();
+                  },
+                  child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.swap_horiz,
+                          size: 40.0,
+                        ),
+                        Text(
+                          'Transfer',
+                          style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w400),
+                        )
+                      ]),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0))),
+              RaisedButton(
+                  elevation: 5.0,
+                  color: Colors.white,
+                  padding: EdgeInsets.all(15.0),
+                  // TODO: SEARCH METHOD.
+                  onPressed: () {},
+                  child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.search,
+                          size: 40.0,
+                        ),
+                        Text(
+                          'Search',
+                          style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w400),
+                        )
+                      ]),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0))),
+              RaisedButton(
+                  elevation: 5.0,
+                  color: Colors.white,
+                  padding: EdgeInsets.all(15.0),
+                  onPressed: () {
+                    setState(() {});
+                  },
+                  child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.refresh,
+                          size: 40.0,
+                        ),
+                        Text(
+                          'Refresh',
+                          style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w400),
+                        )
+                      ]),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0))),
             ]));
   }
 
@@ -271,22 +240,22 @@ class _KeyTabState extends State<KeyTab> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child:
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child:
                         Text('KeyID: ', style: TextStyle(color: Colors.grey))),
-                Text('123456789'),
-                Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: Divider()),
-                Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: Text('Address Information:',
-                        style: TextStyle(color: Colors.grey))),
-                Text('Block 123, Pasir Ris Street 13'),
-                Text('#01-101'),
-                Text('Singapore 123123'),
-              ])),
+                    Text('123456789'),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Divider()),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: Text('Address Information:',
+                            style: TextStyle(color: Colors.grey))),
+                    Text('Block 123, Pasir Ris Street 13'),
+                    Text('#01-101'),
+                    Text('Singapore 123123'),
+                  ])),
           actions: <Widget>[
             new FlatButton(
               child: new Text("Dismiss"),

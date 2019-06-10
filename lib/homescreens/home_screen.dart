@@ -3,7 +3,7 @@ import 'package:key_manage/homescreens/home_tab.dart';
 import 'package:key_manage/homescreens/key_tab.dart';
 import 'package:key_manage/homescreens/noti_tab.dart';
 import 'package:key_manage/homescreens/account_tab.dart';
-import 'package:key_manage/homescreens/empty_screens.dart';
+import 'package:key_manage/models/empty_screens.dart';
 import 'package:key_manage/services/authentication.dart';
 
 class MyHomePage extends StatefulWidget {

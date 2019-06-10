@@ -34,10 +34,6 @@ class _AccountTabState extends State<AccountTab> {
     setState(() {});
   }
 
-  /// Determine cut off size for long text.
-  /// TODO: Find a better way to do text ellipsis.
-  var maxTextSizeBox = 200.0;
-
   /// Displays user email and user type.
   Widget _showUserInfo() {
     return Padding(
@@ -58,22 +54,22 @@ class _AccountTabState extends State<AccountTab> {
                               const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
                           child: Icon(Icons.account_circle, size: 50.0),
                         ),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
+                        Expanded(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
                               Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 8.0, vertical: 4.0),
-                                width: maxTextSizeBox,
                                 child: Text(
                                   "$userDisplayName",
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(fontSize: 22.0),
                                 ),
                               ),
                               Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 8.0, vertical: 4.0),
-                                width: maxTextSizeBox,
                                 child: Text(
                                   '$userEmail',
                                   overflow: TextOverflow.ellipsis,
@@ -89,7 +85,7 @@ class _AccountTabState extends State<AccountTab> {
                                       fontSize: 16.0, color: Colors.grey),
                                 ),
                               ),
-                            ])
+                            ]))
                       ]),
                 ))));
   }

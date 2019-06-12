@@ -13,10 +13,16 @@ class AccountTab extends StatefulWidget {
 }
 
 class _AccountTabState extends State<AccountTab> {
+  /// Database keywords.
+  final keyIdCollection = 'keyCollection';
+  final apartmentMappingCollection = 'apartmentCollection';
+
   var screenBackgroundColor = Colors.white;
   var userDisplayName = '';
   var userEmail;
   var userAccessRights = '';
+  var userIsAdmin = false;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -29,7 +35,7 @@ class _AccountTabState extends State<AccountTab> {
     userDisplayName = await widget.auth.getDisplayName();
     userEmail = await widget.auth.getEmail();
     // TODO: Check if user is admin.
-    var userIsAdmin = false;
+    userIsAdmin = true;
     userAccessRights = userIsAdmin ? 'Admin' : 'User';
     setState(() {});
   }
@@ -133,102 +139,114 @@ class _AccountTabState extends State<AccountTab> {
 
   /// Displays authentication option.
   Widget _showBiometricOption() {
-    return FlatButton(
-      child: new Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: new Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-              child: Icon(Icons.fingerprint),
-            ),
-            Container(
-              child: Text(
-                'Enable Biometrics',
-                style: TextStyle(fontSize: 16.0),
+    return RaisedButton(
+        color: Colors.white,
+        elevation: 5.0,
+        child: new Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                child: Icon(Icons.fingerprint),
               ),
-            )
-          ],
+              Container(
+                child: Text(
+                  'Enable Biometrics',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-      onPressed: () {},
-    );
+        onPressed: () {},
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
   }
 
   /// Displays change password option.
   Widget _showChangePassword() {
-    return FlatButton(
-      child: new Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: new Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-              child: Icon(Icons.vpn_key),
-            ),
-            Container(
-              child: Text(
-                'Change Password',
-                style: TextStyle(fontSize: 16.0),
+    return RaisedButton(
+        color: Colors.white,
+        elevation: 5.0,
+        child: new Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                child: Icon(Icons.vpn_key),
               ),
-            )
-          ],
+              Container(
+                child: Text(
+                  'Change Password',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-      onPressed: () {},
-    );
+        onPressed: () {},
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
   }
 
   /// Displays change notifications option.
   Widget _showNotificationsEdit() {
-    return FlatButton(
-      child: new Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: new Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-              child: Icon(Icons.notifications),
-            ),
-            Container(
-              child: Text(
-                'Change Notifications',
-                style: TextStyle(fontSize: 16.0),
+    return RaisedButton(
+        color: Colors.white,
+        elevation: 5.0,
+        child: new Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                child: Icon(Icons.notifications),
               ),
-            )
-          ],
+              Container(
+                child: Text(
+                  'Change Notifications',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-      onPressed: () {},
-    );
+        onPressed: () {},
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
   }
 
   /// Displays report problem option.
   Widget _showReportProblem() {
-    return FlatButton(
-      child: new Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: new Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-              child: Icon(Icons.error),
-            ),
-            Container(
-              child: Text(
-                'Report a Problem',
-                style: TextStyle(fontSize: 16.0),
+    return RaisedButton(
+        color: Colors.white,
+        elevation: 5.0,
+        child: new Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                child: Icon(Icons.error),
               ),
-            )
-          ],
+              Container(
+                child: Text(
+                  'Report a Problem',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-      onPressed: _showReportProblemInstructions,
-    );
+        onPressed: _showReportProblemInstructions,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
   }
 
   /// Personalised instructions for report instructions.
@@ -264,25 +282,154 @@ class _AccountTabState extends State<AccountTab> {
     );
   }
 
+  /// Displays user management option.
+  Widget _showManageUsersOption() {
+    return RaisedButton(
+        color: Colors.white,
+        elevation: 5.0,
+        child: new Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                child: Icon(Icons.people),
+              ),
+              Container(
+                child: Text(
+                  'Manage Users',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              )
+            ],
+          ),
+        ),
+        onPressed: () {},
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
+  }
+
+  /// Displays key management option.
+  Widget _showManageKeysOption() {
+    return RaisedButton(
+        color: Colors.white,
+        elevation: 5.0,
+        child: new Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                child: Icon(Icons.vpn_key),
+              ),
+              Container(
+                child: Text(
+                  'Manage Keys',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              )
+            ],
+          ),
+        ),
+        onPressed: () {},
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
+  }
+
+  /// Displays view log option.
+  Widget _showViewLogOption() {
+    return RaisedButton(
+        color: Colors.white,
+        elevation: 5.0,
+        child: new Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                child: Icon(Icons.history),
+              ),
+              Container(
+                child: Text(
+                  'View Usage Logs',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              )
+            ],
+          ),
+        ),
+        onPressed: () {},
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
+  }
+
+  /// Displays apartment mapping option.
+  Widget _showApartmentMappingOption() {
+    return RaisedButton(
+        color: Colors.white,
+        elevation: 5.0,
+        child: new Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                child: Icon(Icons.home),
+              ),
+              Container(
+                child: Text(
+                  'Update Apartment Mapping',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              )
+            ],
+          ),
+        ),
+        onPressed: () {},
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
+  }
+
+  /// Separator splitting individual buttons aesthetically.
+  Widget _applySeparator() {
+    return Padding(padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0));
+  }
+
+  /// Shows all admin user option.
+  Widget _showAdminControls() {
+    return new Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
+        child: Column(
+          children: <Widget>[
+            _showManageUsersOption(),
+            _applySeparator(),
+            _showManageKeysOption(),
+            _applySeparator(),
+            _showApartmentMappingOption(),
+            _applySeparator(),
+            _showViewLogOption(),
+          ],
+        ));
+  }
+
   /// Shows all account settings option.
   Widget _showAccountSettings() {
     return new Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
-        child: Card(
-          elevation: 5.0,
-          child: Column(
-            children: <Widget>[
-              _showBiometricOption(),
-              Divider(),
-              _showChangePassword(),
-              Divider(),
-              _showNotificationsEdit(),
-              Divider(),
-              _showReportProblem()
-            ],
-          ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        child: Column(
+          children: <Widget>[
+            _showBiometricOption(),
+            _applySeparator(),
+            _showChangePassword(),
+            _applySeparator(),
+            _showNotificationsEdit(),
+            _applySeparator(),
+            _showReportProblem()
+          ],
         ));
   }
 
@@ -296,7 +443,33 @@ class _AccountTabState extends State<AccountTab> {
         _showUserInfo(),
         _showSettingsHeader(),
         _showAccountSettings(),
+        if (userIsAdmin) _showAdminHeader(),
+        if (userIsAdmin) _showAdminControls()
       ],
+    );
+  }
+
+  /// Displays the 'Admin User' header.
+  Widget _showAdminHeader() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 12.0),
+              child: Text(
+                "Admin User",
+                style: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w500),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -348,6 +521,15 @@ class _AccountTabState extends State<AccountTab> {
     );
   }
 
+  /// Shows the circular progress.
+  Widget _showCircularProgress() {
+    if (_isLoading) {
+      return Center(child: CircularProgressIndicator());
+    } else {
+      return Container();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -355,6 +537,7 @@ class _AccountTabState extends State<AccountTab> {
         body: Stack(
           children: <Widget>[
             _showBody(),
+            _showCircularProgress(),
           ],
         ));
   }

@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:key_manage/firestore_constants.dart';
 import 'package:key_manage/services/authentication.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AccountTab extends StatefulWidget {
   AccountTab({Key key, this.auth, this.userId}) : super(key: key);
@@ -13,9 +16,8 @@ class AccountTab extends StatefulWidget {
 }
 
 class _AccountTabState extends State<AccountTab> {
-  /// Database keywords.
-  final keyIdCollection = 'keyCollection';
-  final apartmentMappingCollection = 'apartmentCollection';
+  final _reportInstructions = 'contacting HDB Helpdesk';
+  var _textEditingController = TextEditingController();
 
   var screenBackgroundColor = Colors.white;
   var userDisplayName = '';
@@ -38,6 +40,97 @@ class _AccountTabState extends State<AccountTab> {
     userIsAdmin = true;
     userAccessRights = userIsAdmin ? 'Admin' : 'User';
     setState(() {});
+  }
+
+  /// Changes the user displayed name.
+  /// Updates the screen.
+  void _setUserDisplayedName() async {
+    userDisplayName = _textEditingController.text;
+    await widget.auth.updateDisplayName(_textEditingController.text);
+    _textEditingController.clear();
+    setState(() {});
+  }
+
+  /// Dialog to allow user to modify display name.
+  void _showModifyUserInfoInstructions() async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Change Display Name'),
+            content: TextField(
+              controller: _textEditingController,
+              decoration: InputDecoration(hintText: "$userDisplayName"),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Cancel'),
+                onPressed: () {
+                  _textEditingController.clear();
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                  child: new Text('Apply'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    _setUserDisplayedName();
+                  })
+            ],
+          );
+        });
+  }
+
+  /// Dialog to allow user to modify display name.
+  void _showAddKeyInstructions() async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Add a Key'),
+            content: TextField(
+              controller: _textEditingController,
+              decoration: InputDecoration(hintText: "Enter the key number"),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Cancel'),
+                onPressed: () {
+                  _textEditingController.clear();
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                  child: new Text('Add'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    _addNewKey();
+                  })
+            ],
+          );
+        });
+  }
+
+  /// Adds a new key to the database.
+  void _addNewKey() {
+    CollectionReference keyDb = Firestore.instance.collection(keyIdCollection);
+    String keyId = _textEditingController.text;
+
+    if (_keyIdIsValid(keyId)) {
+      _textEditingController.clear();
+      String dateNow = DateFormat('dd MMMM yyyy, kk:mm').format(DateTime.now());
+
+      keyDb.document().setData({
+        keyHeader: keyId,
+        locationHeader: widget.userId,
+        dateHeader: dateNow
+      });
+    }
+  }
+
+  /// Checks if the keyId is valid.
+  static bool _keyIdIsValid(String keyId) {
+    return true;
   }
 
   /// Displays user email and user type.
@@ -94,47 +187,6 @@ class _AccountTabState extends State<AccountTab> {
                             ]))
                       ]),
                 ))));
-  }
-
-  /// TextFieldController to get user input name.
-  var _textEditingController = TextEditingController();
-
-  /// Changes the user displayed name.
-  /// Updates the screen.
-  void _setUserDisplayedName() async {
-    userDisplayName = _textEditingController.text;
-    await widget.auth.updateDisplayName(_textEditingController.text);
-    _textEditingController.clear();
-    setState(() {});
-  }
-
-  /// Dialog to allow user to modify display name.
-  void _showModifyUserInfoInstructions() async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Change Display Name'),
-            content: TextField(
-              controller: _textEditingController,
-              decoration: InputDecoration(hintText: "$userDisplayName"),
-            ),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text('Cancel'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              new FlatButton(
-                  child: new Text('Apply'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    _setUserDisplayedName();
-                  })
-            ],
-          );
-        });
   }
 
   /// Displays authentication option.
@@ -249,9 +301,6 @@ class _AccountTabState extends State<AccountTab> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
   }
 
-  /// Personalised instructions for report instructions.
-  final _reportInstructions = 'contacting HDB Helpdesk';
-
   /// Dialog when report problem option is pressed.
   void _showReportProblemInstructions() {
     showDialog(
@@ -311,7 +360,7 @@ class _AccountTabState extends State<AccountTab> {
   }
 
   /// Displays key management option.
-  Widget _showManageKeysOption() {
+  Widget _showAddKeyOption() {
     return RaisedButton(
         color: Colors.white,
         elevation: 5.0,
@@ -326,14 +375,16 @@ class _AccountTabState extends State<AccountTab> {
               ),
               Container(
                 child: Text(
-                  'Manage Keys',
+                  'Add Keys',
                   style: TextStyle(fontSize: 16.0),
                 ),
               )
             ],
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          _showAddKeyInstructions();
+        },
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
   }
@@ -405,13 +456,13 @@ class _AccountTabState extends State<AccountTab> {
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
         child: Column(
           children: <Widget>[
-            _showManageUsersOption(),
-            _applySeparator(),
-            _showManageKeysOption(),
-            _applySeparator(),
-            _showApartmentMappingOption(),
-            _applySeparator(),
-            _showViewLogOption(),
+            //_showManageUsersOption(),
+            //_applySeparator(),
+            _showAddKeyOption(),
+            //_applySeparator(),
+            //_showApartmentMappingOption(),
+            //_applySeparator(),
+            //_showViewLogOption(),
           ],
         ));
   }
@@ -437,7 +488,7 @@ class _AccountTabState extends State<AccountTab> {
   Widget _showBody() {
     return new ListView(
       padding: EdgeInsets.all(16.0),
-      shrinkWrap: true,
+      physics: const AlwaysScrollableScrollPhysics(),
       children: <Widget>[
         _showAccountHeader(),
         _showUserInfo(),

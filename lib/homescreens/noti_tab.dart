@@ -33,8 +33,8 @@ class _NotiTabState extends State<NotiTab> {
   Widget _showBody() {
     return new ListView(
       controller: ScrollController(),
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: EdgeInsets.all(16.0),
-      shrinkWrap: true,
       children: <Widget>[
         _showNotificationsHeader(),
         _showNotification()

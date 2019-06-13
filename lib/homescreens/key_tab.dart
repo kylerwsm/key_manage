@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:key_manage/firestore_constants.dart';
 import 'package:key_manage/models/card_item_model.dart';
 import 'package:key_manage/services/authentication.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class KeyTab extends StatefulWidget {
   KeyTab({Key key, this.auth, this.userId}) : super(key: key);
@@ -25,14 +26,15 @@ class _KeyTabState extends State<KeyTab> {
   var keyID;
   var userLoanedKeys = 0;
   String barcode = "";
+  ScrollController _controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _makeQRCard();
+    _makeSampleKey();
   }
 
-  // Scans a bar code and saves the result into barcode variable.
+  /// Scans a bar code and saves the result into barcode variable.
   void _scanQrCode() async {
     try {
       String barcode = await BarcodeScanner.scan();
@@ -55,9 +57,9 @@ class _KeyTabState extends State<KeyTab> {
     }
   }
 
-  void _makeQRCard() {
+  void _makeSampleKey() {
     var date = new DateTime.utc(1989, 11, 9);
-    var formatter = new DateFormat('dd-MM-yyyy');
+    var formatter = new DateFormat('dd MMM yyyy, kk:mm');
     String formattedDate = formatter.format(date);
     keyID = '123456789';
     keyCard = CardItemModel(keyID, Icons.vpn_key, formattedDate, null);
@@ -143,26 +145,17 @@ class _KeyTabState extends State<KeyTab> {
             ]));
   }
 
-  // Shows the content on the page.
+  /// Shows the content on the page.
   Widget _showBody() {
     return new ListView(
-      controller: ScrollController(),
+      controller: _controller,
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: EdgeInsets.all(16.0),
-      shrinkWrap: true,
       children: <Widget>[
         _showActionsHeader(),
         _showActions(),
         _showKeyHeader(),
-        _showKeyEntry(),
-        _showKeyEntry(),
-        _showKeyEntry(),
-        _showKeyEntry(),
-        _showKeyEntry(),
-        _showKeyEntry(),
-        _showKeyEntry(),
-        _showKeyEntry(),
-        _showKeyEntry(),
-        _showKeyEntry(),
+        _buildKeys()
       ],
     );
   }
@@ -189,43 +182,38 @@ class _KeyTabState extends State<KeyTab> {
     );
   }
 
-  // Displays the QR card on the KeyTab.
-  Widget _showKeyEntry() {
+  /// This widget builds the keys.
+  Widget _buildKeys() {
     return new Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-        child: GestureDetector(
-            onTap: _showKeyInfo,
-            child: Card(
-              elevation: 5.0,
-              child: Container(
-                  width: 250.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 4.0),
-                          child: Text(
-                            "Held since ${keyCard.description}",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 4.0),
-                          child: Text(
-                            "KeyID: ${keyCard.cardTitle}",
-                            style: TextStyle(fontSize: 20.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-            )));
+        child: StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance
+              .collection(keyIdCollection)
+              .where(locationHeader, isEqualTo: widget.userId)
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return new Text('Loading...');
+              default:
+                return new Column(
+                  children:
+                      snapshot.data.documents.map((DocumentSnapshot document) {
+                    return new ListTile(
+                      title: new Text('KeyID: ${document[keyHeader]}',
+                          style: TextStyle(fontSize: 18.0)),
+                      subtitle: new Text('Held since: ${document[dateHeader]}'),
+                      onTap: () {
+                        _showKeyInfo();
+                      },
+                    );
+                  }).toList(),
+                );
+            }
+          },
+        ));
   }
 
   void _showKeyInfo() {
@@ -240,22 +228,22 @@ class _KeyTabState extends State<KeyTab> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child:
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child:
                         Text('KeyID: ', style: TextStyle(color: Colors.grey))),
-                    Text('123456789'),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: Divider()),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child: Text('Address Information:',
-                            style: TextStyle(color: Colors.grey))),
-                    Text('Block 123, Pasir Ris Street 13'),
-                    Text('#01-101'),
-                    Text('Singapore 123123'),
-                  ])),
+                Text('123456789'),
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Divider()),
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: Text('Address Information:',
+                        style: TextStyle(color: Colors.grey))),
+                Text('Block 123, Pasir Ris Street 13'),
+                Text('#01-101'),
+                Text('Singapore 123123'),
+              ])),
           actions: <Widget>[
             new FlatButton(
               child: new Text("Dismiss"),
@@ -271,12 +259,6 @@ class _KeyTabState extends State<KeyTab> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        backgroundColor: currentColor,
-        body: Stack(
-          children: <Widget>[
-            _showBody(),
-          ],
-        ));
+    return new Scaffold(backgroundColor: currentColor, body: _showBody());
   }
 }

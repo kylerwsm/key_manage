@@ -4,11 +4,19 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9c304e8f-8b51-4d03-af7a-d0fd71e71afd" name="Default" comment="More code cleanup">
+    <list default="true" id="9c304e8f-8b51-4d03-af7a-d0fd71e71afd" name="Default" comment="More sample code and layout added">
+      <change afterPath="$PROJECT_DIR$/lib/firestore_constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/homescreens/account_tab.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/homescreens/account_tab.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/homescreens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/homescreens/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/homescreens/home_tab.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/homescreens/home_tab.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/homescreens/key_tab.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/homescreens/key_tab.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/homescreens/noti_tab.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/homescreens/noti_tab.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -28,56 +36,51 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/homescreens/account_tab.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="386" column="18" lean-forward="true" selection-start-line="386" selection-start-column="18" selection-end-line="386" selection-end-column="18" />
+            <state relative-caret-position="214">
+              <caret line="490" column="53" selection-start-line="490" selection-start-column="53" selection-end-line="490" selection-end-column="53" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
-                <element signature="e#717#974#0" />
-                <element signature="e#1080#3621#0" />
-                <element signature="e#3826#4015#0" />
-                <element signature="e#4109#4928#0" />
-                <element signature="e#5000#5776#0" />
-                <element signature="e#5848#6618#0" />
-                <element signature="e#6698#7479#0" />
-                <element signature="e#7549#8343#0" />
-                <element signature="e#8552#9442#0" />
-                <element signature="e#9517#10283#0" />
-                <element signature="e#10356#11122#0" />
-                <element signature="e#11186#11956#0" />
-                <element signature="e#12886#12968#0" />
-                <element signature="e#13035#13458#0" />
-                <element signature="e#8896#9395#0" />
-                <element signature="e#11832#12126#0" />
-                <element signature="e#10590#11203#0" />
-                <element signature="e#9705#10318#0" />
-                <element signature="e#10392#11001#0" />
-                <element signature="e#15501#15630#0" />
-                <element signature="e#14229#14408#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/loginscreens/login_signup_page.dart">
+        <entry file="file://$PROJECT_DIR$/lib/firestore_constants.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="75">
+              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/homescreens/key_tab.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="243">
+              <caret line="156" column="25" lean-forward="true" selection-start-line="156" selection-start-column="25" selection-end-line="156" selection-end-column="25" />
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#0#40#0" expanded="true" />
+                <element signature="e#855#902#0" />
+                <element signature="e#991#1678#0" />
+                <element signature="e#1701#1950#0" />
+                <element signature="e#1976#5087#0" />
+                <element signature="e#5679#5931#0" />
+                <element signature="e#5959#6217#0" />
+                <element signature="e#6371#7630#0" />
+                <element signature="e#7654#9057#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/homescreens/noti_tab.dart">
+        <entry file="file://$PROJECT_DIR$/lib/homescreens/home_tab.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="64" column="29" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
+            <state relative-caret-position="158">
+              <caret line="57" column="23" selection-start-line="57" selection-start-column="23" selection-end-line="57" selection-end-column="23" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
-                <element signature="e#1692#3153#0" />
               </folding>
             </state>
           </provider>
@@ -116,14 +119,15 @@
         <option value="$PROJECT_DIR$/android/build.gradle" />
         <option value="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" />
         <option value="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/lib/homescreens/home_tab.dart" />
         <option value="$PROJECT_DIR$/lib/login_screens/root_page.dart" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/pubspec.yaml" />
         <option value="$PROJECT_DIR$/lib/login_screens/login_signup_page.dart" />
         <option value="$PROJECT_DIR$/lib/main.dart" />
-        <option value="$PROJECT_DIR$/lib/homescreens/key_tab.dart" />
         <option value="$PROJECT_DIR$/lib/homescreens/home_screen.dart" />
+        <option value="$PROJECT_DIR$/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/lib/firestore_constants.dart" />
+        <option value="$PROJECT_DIR$/lib/homescreens/key_tab.dart" />
+        <option value="$PROJECT_DIR$/lib/homescreens/home_tab.dart" />
         <option value="$PROJECT_DIR$/lib/homescreens/noti_tab.dart" />
         <option value="$PROJECT_DIR$/lib/homescreens/account_tab.dart" />
       </list>
@@ -140,7 +144,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -171,6 +174,7 @@
       </pane>
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -339,7 +343,14 @@
       <option name="project" value="LOCAL" />
       <updated>1560156720487</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="More sample code and layout added">
+      <created>1560323314085</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1560323314086</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -366,7 +377,7 @@
       <window_info id="Resources Explorer" order="8" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32876712" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49676898" weight="0.26849315" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49676898" visible="true" weight="0.26849315" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39863014" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -403,7 +414,8 @@
     <MESSAGE value="Updated to reflect new changes for firebase auth" />
     <MESSAGE value="Code cleanup" />
     <MESSAGE value="More code cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="More code cleanup" />
+    <MESSAGE value="More sample code and layout added" />
+    <option name="LAST_COMMIT_MESSAGE" value="More sample code and layout added" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/lib/home_page.dart" />
@@ -466,16 +478,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../flutter/packages/flutter/lib/src/widgets/editable_text.dart" />
-    <entry file="file://$PROJECT_DIR$/lib/homescreens/home_tab.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="18" lean-forward="true" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.flutter-plugins">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -514,13 +516,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/widget_test.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -542,37 +537,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/homescreens/key_tab.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/homescreens/home_screen.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1040">
-          <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/loginscreens/root_page.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/homescreens/noti_tab.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="64" column="29" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-            <element signature="e#1692#3153#0" />
           </folding>
         </state>
       </provider>
@@ -587,33 +557,71 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/homescreens/account_tab.dart">
+    <entry file="file://$PROJECT_DIR$/lib/homescreens/home_screen.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="386" column="18" lean-forward="true" selection-start-line="386" selection-start-column="18" selection-end-line="386" selection-end-column="18" />
+        <state relative-caret-position="15">
+          <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/homescreens/home_tab.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="57" column="23" selection-start-line="57" selection-start-column="23" selection-end-line="57" selection-end-column="23" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
-            <element signature="e#717#974#0" />
-            <element signature="e#1080#3621#0" />
-            <element signature="e#3826#4015#0" />
-            <element signature="e#4109#4928#0" />
-            <element signature="e#5000#5776#0" />
-            <element signature="e#5848#6618#0" />
-            <element signature="e#6698#7479#0" />
-            <element signature="e#7549#8343#0" />
-            <element signature="e#8552#9442#0" />
-            <element signature="e#9517#10283#0" />
-            <element signature="e#10356#11122#0" />
-            <element signature="e#11186#11956#0" />
-            <element signature="e#12886#12968#0" />
-            <element signature="e#13035#13458#0" />
-            <element signature="e#8896#9395#0" />
-            <element signature="e#11832#12126#0" />
-            <element signature="e#10590#11203#0" />
-            <element signature="e#9705#10318#0" />
-            <element signature="e#10392#11001#0" />
-            <element signature="e#15501#15630#0" />
-            <element signature="e#14229#14408#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/homescreens/key_tab.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="156" column="25" lean-forward="true" selection-start-line="156" selection-start-column="25" selection-end-line="156" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+            <element signature="e#855#902#0" />
+            <element signature="e#991#1678#0" />
+            <element signature="e#1701#1950#0" />
+            <element signature="e#1976#5087#0" />
+            <element signature="e#5679#5931#0" />
+            <element signature="e#5959#6217#0" />
+            <element signature="e#6371#7630#0" />
+            <element signature="e#7654#9057#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/homescreens/noti_tab.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="35" column="53" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/firestore_constants.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/homescreens/account_tab.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="490" column="53" selection-start-line="490" selection-start-column="53" selection-end-line="490" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>

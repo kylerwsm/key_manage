@@ -17,7 +17,7 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   var iconColor = Color.fromRGBO(231, 129, 109, 1.0);
   var cardIndex = 0;
-  ScrollController scrollController;
+  ScrollController _controller;
   var currentColor = Colors.white;
   var qrCard;
   var qrCardIconColor = Color.fromRGBO(231, 129, 109, 1.0);
@@ -53,8 +53,8 @@ class _HomeTabState extends State<HomeTab> {
   // Shows the content on the page.
   Widget _showBody() {
     return new ListView(
+      controller: _controller,
       padding: EdgeInsets.all(16.0),
-      shrinkWrap: true,
       children: <Widget>[
         _showHeader(),
         _showQRCard(),
@@ -189,12 +189,6 @@ class _HomeTabState extends State<HomeTab> {
                         child: Text(
                           "${qrCard.cardTitle}",
                           style: TextStyle(fontSize: 28.0),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: LinearProgressIndicator(
-                          value: qrCard.percentDone,
                         ),
                       ),
                     ],

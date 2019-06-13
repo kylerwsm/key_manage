@@ -13,7 +13,7 @@ dependencies:
   qr_flutter: 2.0.0+51  # Build QR codes.
   local_auth: ^0.5.2+2  # Biometrics authentication.
   intl: ^0.15.8  # The follow allows the formatting for dates.
-  # cloud_firestore: 0.12.2  # To enable firestore queries.
+  cloud_firestore: 0.12.2  # To enable firestore queries.
 
 dev_dependencies:
   flutter_test:

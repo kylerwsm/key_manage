@@ -15,6 +15,7 @@ enum FormMode { LOGIN, SIGNUP }
 
 class _LoginSignUpPageState extends State<LoginSignUpPage> {
   final _formKey = new GlobalKey<FormState>();
+  ScrollController _controller = ScrollController();
 
   String _email;
   String _password;

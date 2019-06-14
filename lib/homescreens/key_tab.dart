@@ -75,7 +75,8 @@ class _KeyTabState extends State<KeyTab> {
                   onPressed: () {
                     setState(() => this._isLoading = true);
                     if (_formKey.currentState.validate()) {
-                      _transferKeyAndFeedbackUser(receiver, keyIdController.text);
+                      _transferKeyAndFeedbackUser(
+                          receiver, keyIdController.text);
                       keyIdController.clear();
                       Navigator.of(context).pop();
                     }
@@ -111,7 +112,6 @@ class _KeyTabState extends State<KeyTab> {
       CollectionReference keyDb =
           Firestore.instance.collection(keyIdCollection);
       var snapShot = await keyDb.document(keyId).get();
-      print('Hi $snapShot');
       var transferIsSuccessful = false;
 
       if (snapShot.exists && snapShot[locationHeader] == widget.userId) {
@@ -213,6 +213,92 @@ class _KeyTabState extends State<KeyTab> {
     }
   }
 
+  /// Transfer the key to the receiver if the key belongs to current user.
+  void _searchKeyAndFeedbackUser(String keyId) async {
+    CollectionReference keyDb = Firestore.instance.collection(keyIdCollection);
+    var snapShot = await keyDb.document(keyId).get();
+
+    var feedbackToUser = snapShot.exists
+        ? 'Key ${snapShot.documentID} is held by ${snapShot[locationHeader]} since ${snapShot[dateHeader]}.'
+        : 'Key does not seem to exist.';
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text('Search Results'),
+          content: Text(feedbackToUser),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Dismiss"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /// Search for a key and displays result to user via a dialog box.
+  void _searchForAKey() {
+    TextEditingController keyIdController = TextEditingController();
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              'Search for a Key',
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Form(
+                  key: _formKey,
+                  child: new TextFormField(
+                    maxLines: 1,
+                    keyboardType: TextInputType.number,
+                    autofocus: true,
+                    controller: keyIdController,
+                    decoration: new InputDecoration(
+                        hintText: 'Key number to search',
+                        icon: new Icon(
+                          Icons.vpn_key,
+                          color: Colors.grey,
+                        )),
+                    validator: (value) =>
+                        value.isEmpty ? 'Key number can\'t be empty' : null,
+                  ),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Cancel'),
+                onPressed: () {
+                  keyIdController.clear();
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                  child: new Text('Search'),
+                  onPressed: () {
+                    setState(() => this._isLoading = true);
+                    if (_formKey.currentState.validate()) {
+                      _searchKeyAndFeedbackUser(keyIdController.text);
+                      keyIdController.clear();
+                      Navigator.of(context).pop();
+                    }
+                    setState(() => this._isLoading = false);
+                  })
+            ],
+          );
+        });
+  }
+
+  /// Shows all the action buttons.
   Widget _showActions() {
     return new Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
@@ -247,8 +333,7 @@ class _KeyTabState extends State<KeyTab> {
                   elevation: 5.0,
                   color: Colors.white,
                   padding: EdgeInsets.all(15.0),
-                  // TODO: SEARCH METHOD.
-                  onPressed: () {},
+                  onPressed: () => _searchForAKey(),
                   child: new Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[

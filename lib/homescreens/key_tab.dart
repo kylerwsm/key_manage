@@ -18,6 +18,7 @@ class KeyTab extends StatefulWidget {
 }
 
 class _KeyTabState extends State<KeyTab> {
+  final _formKey = new GlobalKey<FormState>();
   var iconColor = Color.fromRGBO(231, 129, 109, 1.0);
   var currentColor = Colors.white;
   bool _isLoading = false;
@@ -36,14 +37,29 @@ class _KeyTabState extends State<KeyTab> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Transfer a Key to $receiver',),
+            title: Text(
+              'Transfer a Key to $receiver',
+            ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                TextField(
-                  controller: keyIdController,
-                  decoration: InputDecoration(hintText: "Key to transfer"),
-                )
+                Form(
+                  key: _formKey,
+                  child: new TextFormField(
+                    maxLines: 1,
+                    keyboardType: TextInputType.number,
+                    autofocus: true,
+                    controller: keyIdController,
+                    decoration: new InputDecoration(
+                        hintText: 'Key to transfer',
+                        icon: new Icon(
+                          Icons.vpn_key,
+                          color: Colors.grey,
+                        )),
+                    validator: (value) =>
+                        value.isEmpty ? 'Key number can\'t be empty' : null,
+                  ),
+                ),
               ],
             ),
             actions: <Widget>[
@@ -57,10 +73,12 @@ class _KeyTabState extends State<KeyTab> {
               new FlatButton(
                   child: new Text('Transfer'),
                   onPressed: () {
-                    Navigator.of(context).pop();
                     setState(() => this._isLoading = true);
-                    _transferKey(receiver, keyIdController.text);
-                    keyIdController.clear();
+                    if (_formKey.currentState.validate()) {
+                      _transferKeyAndFeedbackUser(receiver, keyIdController.text);
+                      keyIdController.clear();
+                      Navigator.of(context).pop();
+                    }
                     setState(() => this._isLoading = false);
                   })
             ],
@@ -69,7 +87,7 @@ class _KeyTabState extends State<KeyTab> {
   }
 
   /// Transfer the key to the receiver if the key belongs to current user.
-  void _transferKey(String receiver, String keyId) async {
+  void _transferKeyAndFeedbackUser(String receiver, String keyId) async {
     // Check if the key is transferred to oneself.
     if (receiver == widget.userId) {
       showDialog(

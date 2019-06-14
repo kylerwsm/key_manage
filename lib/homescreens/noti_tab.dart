@@ -29,7 +29,7 @@ class _NotiTabState extends State<NotiTab> {
     _makeNotification();
   }
 
-  // Shows the content on the page.
+  /// Shows the content on the page.
   Widget _showBody() {
     return new ListView(
       controller: ScrollController(),
@@ -55,13 +55,13 @@ class _NotiTabState extends State<NotiTab> {
 
   void _makeNotification() {
     var date = new DateTime.utc(1989, 11, 9);
-    var formatter = new DateFormat('dd MMMM yyyy');
+    var formatter = new DateFormat('dd MMMM yyyy, kk:mm');
     String formattedDate = formatter.format(date);
     notificationContent = 'Welcome to KeyManage!';
     notificationDetails = CardItemModel(notificationContent, Icons.vpn_key, formattedDate, null);
   }
 
-  // Displays the QR card on the NotiTab.
+  /// Displays the QR card on the NotiTab.
   Widget _showNotification() {
     return new Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),

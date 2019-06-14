@@ -18,8 +18,11 @@ class AccountTab extends StatefulWidget {
 class _AccountTabState extends State<AccountTab> {
   final _reportInstructions = 'contacting HDB Helpdesk';
   var _textEditingController = TextEditingController();
+  var _tecKeyId = TextEditingController();
+  var _tecAddressLine1 = TextEditingController();
+  var _tecAddressLine2 = TextEditingController();
+  var _tecPostalCode = TextEditingController();
 
-  var screenBackgroundColor = Colors.white;
   var userDisplayName = '';
   var userEmail;
   var userAccessRights = '';
@@ -88,15 +91,35 @@ class _AccountTabState extends State<AccountTab> {
         builder: (context) {
           return AlertDialog(
             title: Text('Add a Key'),
-            content: TextField(
-              controller: _textEditingController,
-              decoration: InputDecoration(hintText: "Enter the key number"),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                TextField(
+                  controller: _tecKeyId,
+                  decoration: InputDecoration(hintText: "Key number"),
+                ),
+                TextField(
+                  controller: _tecAddressLine1,
+                  decoration: InputDecoration(hintText: "Block and Street Name"),
+                ),
+                TextField(
+                  controller: _tecAddressLine2,
+                  decoration: InputDecoration(hintText: "Unit Number"),
+                ),
+                TextField(
+                  controller: _tecPostalCode,
+                  decoration: InputDecoration(hintText: "Postal Code"),
+                )
+              ],
             ),
             actions: <Widget>[
               new FlatButton(
                 child: new Text('Cancel'),
                 onPressed: () {
-                  _textEditingController.clear();
+                  _tecKeyId.clear();
+                  _tecAddressLine1.clear();
+                  _tecAddressLine2.clear();
+                  _tecPostalCode.clear();
                   Navigator.of(context).pop();
                 },
               ),
@@ -114,17 +137,25 @@ class _AccountTabState extends State<AccountTab> {
   /// Adds a new key to the database.
   void _addNewKey() {
     CollectionReference keyDb = Firestore.instance.collection(keyIdCollection);
-    String keyId = _textEditingController.text;
+    String keyId = _tecKeyId.text;
+    String address1 = _tecAddressLine1.text;
+    String address2 = _tecAddressLine2.text;
+    String postal = _tecPostalCode.text;
 
     if (_keyIdIsValid(keyId)) {
-      _textEditingController.clear();
+      _tecKeyId.clear();
+      _tecAddressLine1.clear();
+      _tecAddressLine2.clear();
+      _tecPostalCode.clear();
       String dateNow = DateFormat('dd MMMM yyyy, kk:mm').format(DateTime.now());
 
-      keyDb.document().setData({
-        keyHeader: keyId,
+      keyDb.document(keyId).setData({
         locationHeader: widget.userId,
-        dateHeader: dateNow
-      });
+        dateHeader: dateNow,
+        addressLine1: address1,
+        addressLine2: address2,
+        postalCode: postal
+      }, merge: true);
     }
   }
 
@@ -584,7 +615,6 @@ class _AccountTabState extends State<AccountTab> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        backgroundColor: screenBackgroundColor,
         body: Stack(
           children: <Widget>[
             _showBody(),

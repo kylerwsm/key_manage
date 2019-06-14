@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:key_manage/firestore_constants.dart';
-import 'package:key_manage/models/card_item_model.dart';
 import 'package:key_manage/services/authentication.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:intl/intl.dart';
@@ -20,49 +19,180 @@ class KeyTab extends StatefulWidget {
 
 class _KeyTabState extends State<KeyTab> {
   var iconColor = Color.fromRGBO(231, 129, 109, 1.0);
-  var cardIndex = 0;
   var currentColor = Colors.white;
-  var keyCard;
-  var keyID;
-  var userLoanedKeys = 0;
-  String barcode = "";
+  bool _isLoading = false;
   ScrollController _controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _makeSampleKey();
+  }
+
+  /// Transfer selected keys to receiver.
+  void _transferKeys(String receiver) async {
+    TextEditingController keyIdController = TextEditingController();
+
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Transfer a Key to $receiver',),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                TextField(
+                  controller: keyIdController,
+                  decoration: InputDecoration(hintText: "Key to transfer"),
+                )
+              ],
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Cancel'),
+                onPressed: () {
+                  keyIdController.clear();
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                  child: new Text('Transfer'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    setState(() => this._isLoading = true);
+                    _transferKey(receiver, keyIdController.text);
+                    keyIdController.clear();
+                    setState(() => this._isLoading = false);
+                  })
+            ],
+          );
+        });
+  }
+
+  /// Transfer the key to the receiver if the key belongs to current user.
+  void _transferKey(String receiver, String keyId) async {
+    // Check if the key is transferred to oneself.
+    if (receiver == widget.userId) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text('Transfer Information'),
+            content: Text('You cannot transfer a key to yourself.'),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Dismiss"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      CollectionReference keyDb =
+          Firestore.instance.collection(keyIdCollection);
+      var snapShot = await keyDb.document(keyId).get();
+      print('Hi $snapShot');
+      var transferIsSuccessful = false;
+
+      if (snapShot.exists && snapShot[locationHeader] == widget.userId) {
+        keyDb.document(keyId).updateData({
+          locationHeader: receiver,
+          dateHeader: DateFormat('dd MMMM yyyy, kk:mm').format(DateTime.now()),
+        });
+        transferIsSuccessful = true;
+      }
+
+      var feedbackToUser = transferIsSuccessful
+          ? 'Transferred successfully.'
+          : 'You need to own the key in order to transfer it.';
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text('Transfer Information'),
+            content: Text(feedbackToUser),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Dismiss"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   /// Scans a bar code and saves the result into barcode variable.
   void _scanQrCode() async {
     try {
       String barcode = await BarcodeScanner.scan();
-      setState(() => this.barcode = barcode);
+      _transferKeys(barcode);
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
-        setState(() {
-          this.barcode = 'The application requires camera permission.';
-        });
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: new Text("Error"),
+              content: Text('The application requires camera permission.'),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text("Dismiss"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
       } else {
-        setState(() => this.barcode = 'Unknown error: $e');
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: new Text("Error"),
+              content: Text('Unknown error: $e'),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text("Dismiss"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
       }
     } on FormatException {
-      setState(() => this.barcode = 'null.');
-      print(
-          'null (User returned using the "back"-button before scanning anything)');
+      print('User returned using the "back"-button before scanning anything');
     } catch (e) {
-      setState(() => this.barcode = 'Unknown error.');
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text("Error"),
+            content: Text('Unknown error: $e'),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Dismiss"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
       print('Unknown error: $e');
     }
-  }
-
-  void _makeSampleKey() {
-    var date = new DateTime.utc(1989, 11, 9);
-    var formatter = new DateFormat('dd MMM yyyy, kk:mm');
-    String formattedDate = formatter.format(date);
-    keyID = '123456789';
-    keyCard = CardItemModel(keyID, Icons.vpn_key, formattedDate, null);
   }
 
   Widget _showActions() {
@@ -202,11 +332,11 @@ class _KeyTabState extends State<KeyTab> {
                   children:
                       snapshot.data.documents.map((DocumentSnapshot document) {
                     return new ListTile(
-                      title: new Text('KeyID: ${document[keyHeader]}',
+                      title: new Text('Key ${document.documentID}',
                           style: TextStyle(fontSize: 18.0)),
-                      subtitle: new Text('Held since: ${document[dateHeader]}'),
+                      subtitle: new Text('Held since ${document[dateHeader]}'),
                       onTap: () {
-                        _showKeyInfo();
+                        _showKeyInfo(document);
                       },
                     );
                   }).toList(),
@@ -216,7 +346,7 @@ class _KeyTabState extends State<KeyTab> {
         ));
   }
 
-  void _showKeyInfo() {
+  void _showKeyInfo(DocumentSnapshot document) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -230,9 +360,8 @@ class _KeyTabState extends State<KeyTab> {
                   children: <Widget>[
                 Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child:
-                        Text('KeyID: ', style: TextStyle(color: Colors.grey))),
-                Text('123456789'),
+                    child: Text('Key: ', style: TextStyle(color: Colors.grey))),
+                Text(document.documentID),
                 Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Divider()),
@@ -240,9 +369,8 @@ class _KeyTabState extends State<KeyTab> {
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: Text('Address Information:',
                         style: TextStyle(color: Colors.grey))),
-                Text('Block 123, Pasir Ris Street 13'),
-                Text('#01-101'),
-                Text('Singapore 123123'),
+                Text(
+                    '${document[addressLine1]}\n${document[addressLine2]}\nSingapore ${document[postalCode]}'),
               ])),
           actions: <Widget>[
             new FlatButton(
@@ -257,8 +385,23 @@ class _KeyTabState extends State<KeyTab> {
     );
   }
 
+  /// Shows the circular progress.
+  Widget _showCircularProgress() {
+    if (_isLoading) {
+      return Center(child: CircularProgressIndicator());
+    } else {
+      return Container();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(backgroundColor: currentColor, body: _showBody());
+    return new Scaffold(
+        body: Stack(
+      children: <Widget>[
+        _showBody(),
+        _showCircularProgress(),
+      ],
+    ));
   }
 }
